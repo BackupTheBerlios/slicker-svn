@@ -58,23 +58,19 @@ bool CardStack::accept(Applet * applet)
 	
 	registerApplet(applet);
 	return true;
-    
-/*	
-	icon->reparent(_content, QPoint(0,0), true);
-	_content->updateGeometry();
-	icon->resize(32, 32);
-	
-	registerApplet(applet);
-	return true;
-*/
 }
 
 void CardStack::detach(Applet * applet)
 {
 	if (applet->icon())
 		applet->icon()->reparent(NULL, QPoint(0,0), false);
+	applet->content()->reparent(NULL, QPoint(0,0), false);
 	
 	deregisterApplet(applet);
+	
+	if (applets().count() == 0)
+		_emptyStackTab->show();
+	
 	updateGeometry();
 }
 

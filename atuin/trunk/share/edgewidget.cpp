@@ -38,8 +38,9 @@ EdgeWidget::EdgeWidget(QWidget * parent, const char * name, WFlags f)
     _edgeAdjust = true;
     setPosition( 0, SameEdge );
 
+	KWin::setType(winId(), NET::Dock);
+    KWin::setState(winId(), NET::Sticky | NET::KeepBelow);
     KWin::setOnAllDesktops(winId(), true);
-    KWin::setState(winId(), NET::SkipTaskbar | NET::SkipPager);
 
     EdgeWidgetManager::self()->registerWidget(this);
 }
