@@ -1,0 +1,12 @@
+Begin4
+Title:          slicker
+Version:        0.1
+Entered-date:   2002-11-25
+Description:    Slicker
+Keywords:       KDE X11 desktop Qt 
+Author:         slicker devels
+Primary-site:   http://www.slicker.org
+Alternate-site: http://www.kde.org/mirrors.html
+Platforms:      Unix, Qt
+Copying-policy: GPL, Artistic
+End

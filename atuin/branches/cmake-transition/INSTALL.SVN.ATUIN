@@ -1,0 +1,92 @@
+[give advice:
+  Before you start copy-cat installing what has been written,
+  first read thru it (all of it!), then follow the instructions.
+]
+
+[open konsole]
+ su <username you want to install it into>
+ mkdir ~/slicker
+ mkdir ~/slicker/src
+ cd ~/slicker/src
+ svn co svn://svn.slicker.org/slicker/atuin/trunk atuin 
+ cd atuin
+
+[give advice:
+  The default prefix gets set to '/usr/local/kde' if you don't have
+  a '$KDEDIR' variable declared (check by doing 'echo $KDEDIR').
+  so, by default, everything will install into these directories:
+
+  bin's 	=> $KDEDIR/bin
+  lib's		=> $KDEDIR/lib
+  modules	=> $KDEDIR/lib/kde3
+  *.desktop	=> $KDEDIR/share/apps/slicker/cardapplets
+
+  NOTE!: $KDEDIR == /usr/local/kde IF no $KDEDIR declared!
+
+  Following these instructions will instead install it to your home
+  directory. The reason for installing it here is to make it a bit more clear
+  which files Slicker uses. This also allows you to control who gets to crash
+  your computer :), because you never know what bug(s) you may encounter.
+
+  You can always do it your way, just know what you're doing.
+
+  If you don't take the above suggestion, make _sure_ you have $KDEDIR
+  declared to get Slicker running; eg. 'export KDEDIR=$(kde-config --prefix)',
+  or run configure with '--prefix=$(kde-config --prefix)' before you continue.
+
+   NOTE!:  declaring variables in console will not save them for 'next time',
+                and you have to declare them again. If you want to permanently
+                declare them put them in /etc/bash.bashrc or equal!
+]
+
+ make -f Makefile.cvs
+ ./configure --prefix=$HOME/slicker
+ make
+
+[give advice:
+   NOTE!: if you don't follow the above suggestion make sure you are superuser
+                when doing the "make install".
+]
+
+ make install
+
+[give advice:
+  If you didn't follow the instructions above, and you let it install in the
+  default location make sure '$(kde-config --prefix)/bin' is in your 'PATH', 
+
+  If you did follow the instruction above, you have to make KDE recognize
+  '$HOME/slicker' is a 'KDE-dir', and that it should look there.
+
+   NOTE!: You will need to be superuser to complete this.
+]
+
+ su
+ kwrite /etc/X11/Xsession
+
+[give advice:
+  Now all you need to do is add the following lines:
+      'export KDEDIRS=$(kde-config --prefix):$HOME/slicker'
+      'export PATH=$PATH:$HOME/slicker/bin'
+  without the quotations marks! - as you normally would do, 
+  at the top the file (before the script starts!).
+
+   NOTE!: In order for the new variable to be set, you have to
+                restart X when you are done.
+]
+
+ cd ~/slicker/bin
+ chmod 700 slicker
+
+[give advice:
+  Now all you (must be the same user how installed it! xor root) have to do
+  is pop open a console-window or run-command-window, and type 'slicker'
+
+  If you are daring enough, you can also have Slicker start at Bootup/Login
+  instead of Kicker. Do:
+    mkdir ~/.kde/share/autostart
+    cp $(kde-config --prefix)/share/autostart/*.desktop ~/.kde/share/autostart
+    kwrite ~/.kde/share/autostart/panel.desktop
+  and change the line that says:
+    "Exec=kicker" to "Exec=slicker"
+  restart X and have fun.
+]

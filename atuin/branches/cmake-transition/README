@@ -1,0 +1,37 @@
+TOPICS
+======
+covered by this README file:
+
+ 1. A WORTHY DOCUMENTS LIST
+ 2. INSTALLING SLICKER
+
+-----------------------------------------------------------------------------
+
+1. A WORTHY DOCUMENTS LIST
+
+     AUTHORS                      List of Authors
+     CONTRIBUTORS                 List of Contributors
+     COPYING                      A copy of the license
+     DEVELOPERS                   List of Developers
+     INSTALL                      Installing procedure for this distribution
+     INSTALL.SVN.ATUIN            Installing procedures for a SVN install
+     README                       THIS FILE!
+     README.CONTRIBUTORS          Readme for Contributors
+     README.DEVELOPERS            Readme for Developers
+     README.MAINTAINERS           Readme for Maintainers
+     templates/template.header    Source Template
+     templates/template.source    Header Template
+
+
+2. INSTALLING SLICKER
+
+     For the installation procedure please see INSTALL file that came with
+     this distribution.
+
+     For the installation procedure on how to obtain and install the latest
+     source code from the SVN repository, please see the INSTALL.SVN.ATUIN
+     file that came with this distribution.
+
+
+---
+Thanks - The Slicker Development Team

@@ -1,0 +1,16 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=Slicker/Plugin
+X-KDE-Library=slicker_clock
+X-KDE-PluginInfo-Author=Manuel Uphoff
+X-KDE-PluginInfo-Email=uppi@users.berlios.de
+X-KDE-PluginInfo-Name=slicker_clock
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=N/A
+X-KDE-PluginInfo-Category=GPP
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+Name=Clock
+Comment=A Clock for Slicker
