@@ -1,3 +1,3 @@
 INCLUDES = $(all_includes)
 
-SUBDIRS =  launcher
+SUBDIRS =  launcher clock
