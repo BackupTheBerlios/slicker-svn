@@ -10,11 +10,18 @@
  *  (at your option) any later version.                                    *
  ***************************************************************************/
 #include "cardstack.h"
+#include <qptrlist.h>
+
+/*** CardStack *********************/
 
 CardStack::CardStack(const QString & id) : EdgeWidget(NULL, "CardStack"), AppletHost("CardStack"), SessionItem(id)
 {
+	_layout = new EdgeWidgetBoxLayout(this, this, EdgeWidgetBoxLayout::Perpendicular, "CardLayout");
+	_layout->setAutoAdd(true);
+    _layout->setResizeMode( QLayout::Fixed );
+	new CardTab(0L, this);
+	show();
 }
-
 
 CardStack::~CardStack()
 {
@@ -56,7 +63,8 @@ void CardStack::detach(Applet * applet)
 
 void CardStack::edgeChanged(EdgeWidget::ScreenEdge/* oldEdge*/)
 {
-	
+	_layout->invalidate();
+	updateGeometry();
 }
 
 void CardStack::restore(KConfigBase * config)
@@ -70,7 +78,49 @@ void CardStack::store(KConfigBase * config)
 	config->writeEntry("location", location());
 }
 
-/*** SliderFactory *****************/
+/*** CardTab **************************/
+CardTab::CardTab(Applet * applet, QWidget * parent) : EdgeWidgetLayoutBox( parent, EdgeWidgetBoxLayout::Colinear, "CardTab" )
+{
+	_label = 0L;
+	_applet = 0L;
+	_icon = 0L;
+	layout()->setMargin(9);
+	setApplet(applet);
+}
+
+CardTab::~CardTab()
+{
+	if (_icon)
+		_icon->reparent(this, QPoint(10,10), false);
+}
+
+Applet * CardTab::applet() const
+{
+	return _applet;
+}
+
+void CardTab::setApplet(Applet * applet)
+{
+	if (_icon)
+		_icon->reparent(0L, QPoint(10,10), true);
+	if (_label)
+		delete _label;
+		
+	_applet = applet;
+	
+	if (_applet)
+	{
+		_icon = _applet->icon();
+		if (_icon)
+			_icon->reparent(this, QPoint(10,10), true);
+		
+		_label = new QLabel(_applet->name(), this, "CardTabLabel"); 
+	}
+	else
+		_label = new QLabel(i18n("Empty Card"), this, "CardTabLabel"); 
+}
+
+/*** CardStackFactory *****************/
 CardStackFactory::CardStackFactory() : SessionItemFactory("cardstack")
 {
 	

@@ -233,6 +233,18 @@ EdgeWidgetLayoutBox::EdgeWidgetLayoutBox(QWidget* parent, EdgeWidget *edgeWidget
     _layout->setAutoAdd(true);
 }
 
+EdgeWidgetLayoutBox::EdgeWidgetLayoutBox(QWidget* parent, EdgeWidgetBoxLayout::Orientation orientation, const char* name )
+        : QFrame( parent, name )
+{
+    QWidget * edgeWidget = this;
+	
+	while (edgeWidget && dynamic_cast<EdgeWidget *>(edgeWidget) != 0l)
+		edgeWidget = dynamic_cast<QWidget *>(edgeWidget->parent());
+
+	_layout = new EdgeWidgetBoxLayout(this, (EdgeWidget *)edgeWidget, orientation, name);
+    _layout->setAutoAdd(true);
+}
+
 void EdgeWidgetLayoutBox::relayout()
 {
     _layout->invalidate();

@@ -111,6 +111,7 @@ class EdgeWidgetLayoutBox : public QFrame
     Q_OBJECT
 public:
     EdgeWidgetLayoutBox( QWidget* parent, EdgeWidget *edgeWidget, EdgeWidgetBoxLayout::Orientation orientation=EdgeWidgetBoxLayout::Colinear, const char* name=0 );
+    EdgeWidgetLayoutBox( QWidget* parent, EdgeWidgetBoxLayout::Orientation orientation=EdgeWidgetBoxLayout::Colinear, const char* name=0 );
 
     void relayout();
 private:

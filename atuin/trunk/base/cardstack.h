@@ -12,11 +12,29 @@
 #ifndef CARDSTACK_H
 #define CARDSTACK_H
 
+#include <qlabel.h>
+
 #include "applet.h"
 #include "applethost.h"
 #include "edgewidget.h"
+#include "edgewidgethelpers.h"
 #include "sessionitem.h"
 #include "sessionitemfactory.h"
+
+class CardTab : EdgeWidgetLayoutBox
+{
+Q_OBJECT
+public:
+	CardTab(Applet * applet, QWidget * parent);
+	virtual ~CardTab();
+	
+	Applet * applet() const;
+	void setApplet(Applet * applet);
+private:
+	Applet * _applet;
+	QWidget * _icon;
+	QLabel * _label;
+};
 
 /**
 * The basic CardStack class
@@ -27,17 +45,18 @@ class CardStack : public EdgeWidget, public AppletHost, public SessionItem
 Q_OBJECT
 public:
 	CardStack(const QString & id);
-	~CardStack();
+	virtual ~CardStack();
 	
 	bool accept(Applet * applet);
 	void detach(Applet * applet);
 	    
 	virtual void restore(KConfigBase * config);
 	virtual void store(KConfigBase * config);
-
-
+	
 protected slots:
 	virtual void edgeChanged(EdgeWidget::ScreenEdge oldEdge);
+private:
+	EdgeWidgetBoxLayout * _layout;
 };
 
 /**
