@@ -21,19 +21,26 @@
 #include "sessionitem.h"
 #include "sessionitemfactory.h"
 
-class CardTab : EdgeWidgetLayoutBox
+class CardStack;
+
+class CardTab : public EdgeWidgetLayoutBox
 {
 Q_OBJECT
 public:
-	CardTab(Applet * applet, QWidget * parent);
+	CardTab(Applet * applet, CardStack * parent);
 	virtual ~CardTab();
 	
 	Applet * applet() const;
 	void setApplet(Applet * applet);
+
+	void mousePressEvent ( QMouseEvent *e );
+	void mouseReleaseEvent ( QMouseEvent *e );
+
 private:
 	Applet * _applet;
 	QWidget * _icon;
 	QLabel * _label;
+	CardStack * _stack;
 };
 
 /**
@@ -53,10 +60,15 @@ public:
 	virtual void restore(KConfigBase * config);
 	virtual void store(KConfigBase * config);
 	
+	bool showApplet(Applet * applet);
+	bool hideApplet(Applet * applet);
+	bool hideAll();
+	
 protected slots:
 	virtual void edgeChanged(EdgeWidget::ScreenEdge oldEdge);
 private:
 	EdgeWidgetBoxLayout * _layout;
+	CardTab * _emptyStackTab;
 };
 
 /**

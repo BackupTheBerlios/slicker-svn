@@ -37,9 +37,8 @@ AppletHost::~AppletHost()
     AppletManager::self()->deregisterAppletHost(this);
 }
 
-bool AppletHost::acceptsApplet(const AppletDef * applet) const
+bool AppletHost::acceptsApplet(const AppletDef *) const
 {
-    applet->name(); // Avoid warnings. If anyone knows a better way, please do tell.
     return true;
 }
 
@@ -61,6 +60,11 @@ void AppletHost::deregisterApplet(Applet *applet)
 const QString &AppletHost::name() const
 {
     return _name;
+}
+
+const QPtrList<Applet> &AppletHost::applets()
+{
+	return _applets;
 }
 
 void AppletHost::removeAllApplets()

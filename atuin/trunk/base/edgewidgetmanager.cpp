@@ -68,14 +68,14 @@ void EdgeWidgetManager::pollMouse()
 	
 	if (mousePos.x() == 0)
 		edge = (EdgeWidget::ScreenEdge)(edge | EdgeWidget::LeftEdge);
-	else if (mousePos.x() == screen.width())
+	else if (mousePos.x() == screen.width()-1)
 		edge = (EdgeWidget::ScreenEdge)(edge | EdgeWidget::RightEdge);
 	else
 		_lastTouchedEdge = (EdgeWidget::ScreenEdge)(_lastTouchedEdge & (~(EdgeWidget::LeftEdge | EdgeWidget::RightEdge)));
 	
 	if (mousePos.y() == 0)
 		edge = (EdgeWidget::ScreenEdge)(edge | EdgeWidget::TopEdge);
-	else if (mousePos.y() == screen.height())
+	else if (mousePos.y() == screen.height()-1)
 		edge = (EdgeWidget::ScreenEdge)(edge | EdgeWidget::BottomEdge);
 	else
 		_lastTouchedEdge = (EdgeWidget::ScreenEdge)(_lastTouchedEdge & (~(EdgeWidget::TopEdge | EdgeWidget::BottomEdge)));

@@ -159,8 +159,9 @@ void Slider::edgeChanged(EdgeWidget::ScreenEdge oldEdge)
     h.transform(*_tray1);
     h.transform(*_tray2);
     h.transform(*_content);
-
-    updateGeometry();
+    
+	_mainLayout->invalidate();
+	updateGeometry();
 }
 
 void Slider::restore(KConfigBase * config)

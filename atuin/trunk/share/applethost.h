@@ -51,7 +51,8 @@ public:
     virtual void detach(Applet * applet) = 0;
 
     const QString &name() const;
-    
+    const QPtrList<Applet> &applets();
+	
     void removeAllApplets();
 
     Applet * findApplet(const QWidget *widget);

@@ -206,18 +206,35 @@ EdgeWidgetBoxLayout::EdgeWidgetBoxLayout( QWidget* parent, EdgeWidget *edgeWidge
 
 QBoxLayout::Direction EdgeWidgetBoxLayout::realDirection() const
 {
-    bool isHorizontal;
-    bool isPerpendicular = _orientation == Perpendicular;
-
-    if (_edgeWidget)
-        isHorizontal = _edgeWidget->orientation() == Horizontal;
-    else
-        isHorizontal = true;
-
-    if ((isPerpendicular || isHorizontal) && (isPerpendicular != isHorizontal))
-        return QBoxLayout::LeftToRight;
-    else
-        return QBoxLayout::TopToBottom;
+	bool isPerpendicular = _orientation == Perpendicular;
+	EdgeWidget::ScreenEdge edge = _edgeWidget->edge();
+	
+	if (!_edgeWidget)
+		return QBoxLayout::LeftToRight;
+	else if (isPerpendicular)
+		switch (edge)
+		{
+			case EdgeWidget::TopEdge:
+				return QBoxLayout::BottomToTop;
+			case EdgeWidget::BottomEdge:
+				return QBoxLayout::TopToBottom;
+			case EdgeWidget::LeftEdge:
+				return QBoxLayout::RightToLeft;
+			case EdgeWidget::RightEdge:
+			default:
+				return QBoxLayout::LeftToRight;
+		}
+	else
+		switch (edge)
+		{
+			case EdgeWidget::LeftEdge:
+			case EdgeWidget::RightEdge:
+				return QBoxLayout::TopToBottom;
+			case EdgeWidget::TopEdge:
+			case EdgeWidget::BottomEdge:
+			default:
+				return QBoxLayout::LeftToRight;
+		}
 }
 
 void EdgeWidgetBoxLayout::invalidate()
@@ -238,7 +255,7 @@ EdgeWidgetLayoutBox::EdgeWidgetLayoutBox(QWidget* parent, EdgeWidgetBoxLayout::O
 {
     QWidget * edgeWidget = this;
 	
-	while (edgeWidget && dynamic_cast<EdgeWidget *>(edgeWidget) != 0l)
+	while (edgeWidget && (!dynamic_cast<EdgeWidget *>(edgeWidget)))
 		edgeWidget = dynamic_cast<QWidget *>(edgeWidget->parent());
 
 	_layout = new EdgeWidgetBoxLayout(this, (EdgeWidget *)edgeWidget, orientation, name);
