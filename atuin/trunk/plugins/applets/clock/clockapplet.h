@@ -35,7 +35,7 @@ private:
 	ClockAppletDef * _appletDef;
 };
 
-class ClockApplet : public QObject, public SessionApplet
+class ClockApplet :  public SessionApplet
 {
 	Q_OBJECT
 public:

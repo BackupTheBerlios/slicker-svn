@@ -26,7 +26,7 @@ class KFileItem;
 /**
  *  LauncherApplet
  */
-class LauncherApplet : public QObject, public SessionApplet
+class LauncherApplet : public SessionApplet
 {
     Q_OBJECT
 public:

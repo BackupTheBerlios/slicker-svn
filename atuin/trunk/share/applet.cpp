@@ -12,8 +12,13 @@
 
 #include "applet.h"
 #include "appletmanager.h"
+#include <qcursor.h>
+#include <qpopupmenu.h>
+
+
 
 Applet::Applet(AppletDef *appletDef)
+: _contextMenu(0)
 {
     _host = NULL;
     _appletDef = appletDef;
@@ -21,6 +26,22 @@ Applet::Applet(AppletDef *appletDef)
     _icon = NULL;
     _content = NULL;
 }
+    
+void Applet::popupContextMenu()
+{
+    if (!_contextMenu) {
+        _contextMenu = new KActionMenu();
+    }
+    KActionPtrList& actions = contextActions();
+    KActionPtrList::Iterator it_action = actions.begin();
+    for (; it_action != actions.end(); ++it_action)
+    {
+        _contextMenu->remove(*it_action);
+        _contextMenu->insert(*it_action);
+    }
+    _contextMenu->popup(QCursor::pos());
+}
+
 
 Applet::~Applet()
 {
@@ -37,7 +58,27 @@ Applet::~Applet()
         _content = NULL;
     }
     
+    if (_contextMenu) {
+        delete _contextMenu;
+	_contextMenu = NULL;
+    }
+       
     _appletDef->deregisterApplet(this);
+}
+
+bool Applet::eventFilter(QObject* o, QEvent* e)
+{
+    if (o == icon()) {
+        switch (e->type()) {
+        case QEvent::ContextMenu:
+            popupContextMenu();
+            break;
+        }
+    }
+    else if (o == content()) {
+    }
+    
+    return FALSE;
 }
 
 AppletDef * Applet::appletDef() const
@@ -79,9 +120,25 @@ bool Applet::transfer(AppletHost * newHost)
     }
 }
 
+void Applet::setIcon(QWidget* icon)
+{
+    _icon = icon;
+    if (_icon) {       
+        _icon->installEventFilter(this);
+    }
+}
+
 QWidget * Applet::icon()
 {
     return _icon;   
+}
+
+void Applet::setContent(QWidget* content)
+{
+    _content = content;
+    if (_content) {       
+        _content->installEventFilter(this);
+    }
 }
 
 QWidget * Applet::content()
@@ -89,13 +146,23 @@ QWidget * Applet::content()
     return _content;
 }
 
+
 AppletHost * Applet::host()
 {
     return _host;
 }
 
-KActionPtrList Applet::contextActions(QWidget *, const QPoint &)
+KActionPtrList& Applet::contextActions()
 {
-	return KActionPtrList();
+    return _defaultContextActions;
 }
 
+void Applet::addDefaultContextAction(KAction* action)
+{
+    _defaultContextActions.append(action);
+}
+
+void Applet::addContextAction(KAction* action)
+{
+    contextActions().append(action);
+}

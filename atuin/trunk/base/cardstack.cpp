@@ -65,6 +65,8 @@ bool CardStack::accept(Applet * applet)
 	
 	_layout->invalidate();
 	
+	applet->addDefaultContextAction(_removeAppletAction);
+	
 	registerApplet(applet);
 	return true;
 }
@@ -102,6 +104,7 @@ void CardStack::store(KConfigBase * config)
 
 void CardStack::contextMenuEvent(QContextMenuEvent *e)
 {
+/*
 	QWidget * childWidget = directChildAt(e->pos());
 	_currentApplet = childWidget ? findApplet(childWidget) : 0L;
 	
@@ -124,6 +127,15 @@ void CardStack::contextMenuEvent(QContextMenuEvent *e)
 	else
 		_hostMenu->popup(e->globalPos());
     e->accept();
+*/
+	QWidget * childWidget = directChildAt(e->pos());
+	_currentApplet = childWidget ? findApplet(childWidget) : 0L;
+	
+	if (!_currentApplet)
+	{
+		_hostMenu->popup(e->globalPos());
+	}
+	e->accept();	
 }
 
 QWidget * CardStack::directChildAt(const QPoint & point)

@@ -34,8 +34,8 @@ Slider::Slider(const QString & id)
 /*    _content->setMaximumHeight(32);*/
 
     _hostMenu = new AppletHostMenu(this, "SliderAppletMenu", this, i18n("Slider Menu"));
-	_appletMenu = 0L;
-	_removeAppletAction = new KAction(i18n("Remove applet"), KShortcut(), this, SLOT(slotRemoveCurrentApplet()), this, "RemoveApplet");
+    _appletMenu = 0L;
+    _removeAppletAction = new KAction(i18n("Remove applet"), KShortcut(), this, SLOT(slotRemoveCurrentApplet()), this, "RemoveApplet");
 
     show();
 }
@@ -61,6 +61,8 @@ bool Slider::accept(Applet * applet)
     icon->reparent(_content, QPoint(0,0), true);
     _content->updateGeometry();
     icon->resize(32, 32);
+    
+    applet->addDefaultContextAction(_removeAppletAction);
     
     registerApplet(applet);
     return true;
@@ -120,6 +122,7 @@ QWidget * Slider::directChildAt(const QPoint & point)
 
 void Slider::contextMenuEvent(QContextMenuEvent *e)
 {
+/**
 	QWidget * childWidget = directChildAt(e->pos());
 	_currentApplet = childWidget ? findApplet(childWidget) : 0L;
 	
@@ -142,6 +145,15 @@ void Slider::contextMenuEvent(QContextMenuEvent *e)
 	else
 		_hostMenu->popup(e->globalPos());
     e->accept();
+*/
+	QWidget * childWidget = directChildAt(e->pos());
+	_currentApplet = childWidget ? findApplet(childWidget) : 0L;
+	
+	if (!_currentApplet)
+	{
+		_hostMenu->popup(e->globalPos());
+	}
+	e->accept();
 }
 
 void Slider::slotRemoveCurrentApplet()

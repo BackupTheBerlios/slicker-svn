@@ -38,7 +38,7 @@ ClockApplet::ClockApplet(SessionAppletDef * appletDef, const QString &id, ClockP
 {
 	_plugin = plugin;
 	_vbox = new QVBox();  
-	_icon = _vbox; 		//Hack so that we can recreate the clock if the config is changed 
+	setIcon(_vbox);        //Hack so that we can recreate the clock if the config is changed 
 	loadSettings();
 	
 

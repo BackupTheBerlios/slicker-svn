@@ -40,7 +40,7 @@ Slicker::Slicker()
     AppletManager::self();
     
     new SliderFactory();
-	new CardStackFactory();
+    new CardStackFactory();
     SessionManager::self()->restore();
 
     _menu = new KPopupMenu( NULL, "Slicker Menu");

@@ -119,7 +119,6 @@ SessionItem * SessionManager::loadItem(const QString & id) const
     if (_currentConfig && !_items[id])
     {
         KConfigGroup config(_currentConfig, id);
-    
         SessionItemFactory * factory = _itemFactories[SessionItem::factoryName(id)];
 		if (factory)
 			return factory->loadItem(&config);

@@ -30,7 +30,7 @@ private:
     TestAppletDef * _appletDef;
 };
 
-class TestApplet : public QObject, public SessionApplet
+class TestApplet : public SessionApplet
 {
     Q_OBJECT
 public:

@@ -32,13 +32,15 @@ LauncherApplet::LauncherApplet(SessionAppletDef * appletDef,
       _plugin(plugin), _fileItem(0)
 {
     _button = new LauncherButton();
-    _button->popupMenu()->insertItem( i18n("&Preferences"), this, SLOT(slotShowPreferences()));
-    _button->popupMenu()->insertItem( i18n("&Remove"), this, SLOT(slotRemove()));
+    addContextAction(new KAction(i18n("&Preferences"), KShortcut(), 
+                     this, SLOT(slotShowPreferences()), this, "clockPreferences"));
+    // The second last argument of KAction passes an owner applet which gives auto deletion
+    // Removing Launcher applets is now handled generally though a slot on the host
 
     connect(_plugin, SIGNAL(settingsChanged()), this, SLOT(slotSettingsChanged()));
     connect(_button, SIGNAL(clicked()), this, SLOT(slotButtonClicked()));
     
-    _icon = _button;
+    setIcon(_button);
     
     slotSettingsChanged();
 }

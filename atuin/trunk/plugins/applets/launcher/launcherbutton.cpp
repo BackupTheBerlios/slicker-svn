@@ -20,14 +20,13 @@
 #include "launcherbutton.h"
  
 LauncherButton::LauncherButton(QWidget *parent, const char *name, WFlags f)
-  : QButton(parent, name, f), _popupMenu(0)
+  : QButton(parent, name, f)
 {
 
 }
 
 LauncherButton::~LauncherButton()
 {
-    delete _popupMenu;
 }
 
 void LauncherButton::setIcon(QString iconName)
@@ -93,19 +92,4 @@ void LauncherButton::mousePressEvent (QMouseEvent *e)
     QButton::mousePressEvent(e);
 }
 
-void LauncherButton::contextMenuEvent (QContextMenuEvent *e)
-{
-    if (_popupMenu) {
-        _popupMenu->popup(e->globalPos());
-    }
-}
-
-QPopupMenu* LauncherButton::popupMenu()
-{    
-    if (!_popupMenu) {
-        _popupMenu = new QPopupMenu();
-    }
-    return _popupMenu;
-}
- 
 #include "launcherbutton.moc"

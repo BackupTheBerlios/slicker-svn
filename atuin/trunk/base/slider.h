@@ -62,9 +62,9 @@ private:
     EdgeWidgetLayoutBox *_content;
     EdgeWidgetBoxLayout *_mainLayout;
     AppletHostMenu * _hostMenu;
-	KActionMenu *_appletMenu;
-	KAction * _removeAppletAction;
-	Applet * _currentApplet;
+    KActionMenu *_appletMenu;
+    KAction * _removeAppletAction;
+    Applet * _currentApplet;
 };
 
 /**

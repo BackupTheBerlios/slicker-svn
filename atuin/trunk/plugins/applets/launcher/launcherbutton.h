@@ -29,12 +29,8 @@ public:
     
     void setIcon(QString iconName);
 
-    /// Get a pointer to the button's Popup-Menu    
-    virtual QPopupMenu* popupMenu();
-
 protected:
     virtual void drawButton(QPainter *);
-    virtual void contextMenuEvent (QContextMenuEvent *);
     virtual void enterEvent (QEvent *);
     virtual void leaveEvent (QEvent *);
     virtual void mousePressEvent (QMouseEvent *);
