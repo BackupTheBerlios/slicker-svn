@@ -14,6 +14,7 @@
 #include "appletmanager.h"
 #include "applet.h"
 
+
 AppletHost::AppletHost(QString &name)
 {
     AppletManager::self()->registerAppletHost(this);
@@ -61,3 +62,25 @@ const QString &AppletHost::name() const
 {
     return _name;
 }
+
+void AppletHost::removeAllApplets()
+{
+	
+	QPtrListIterator<Applet> iter(_applets);
+	QPtrList <Applet> appletList;
+	Applet * applet;
+	
+	//A copy of the list is needed, because it will be destroyed while deregistering the applets
+	for(applet = 0; (applet=iter.current()); ++iter)
+		appletList.append(applet);
+				
+	QPtrListIterator <Applet> iter2(appletList);
+
+	for(applet = 0; (applet = iter2.current()); ++iter2)
+	{
+		deregisterApplet(applet);
+		delete(applet);
+	}
+}
+
+

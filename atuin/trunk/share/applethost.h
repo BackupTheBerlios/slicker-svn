@@ -24,7 +24,7 @@ class Applet;
 * one or many applets to be held within it.
 * @author Ulrik Mikaelsson <rawler@users.sourceforge.net>
 */
-class AppletHost
+class AppletHost 
 {
 public:
     AppletHost(QString &name);
@@ -51,7 +51,10 @@ public:
     virtual void detach(Applet * applet) = 0;
 
     const QString &name() const;
+    
+    void removeAllApplets();
 
+    
 protected:
     void registerApplet(Applet *applet);
     void deregisterApplet(Applet *applet);

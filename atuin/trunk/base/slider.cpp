@@ -31,13 +31,16 @@ Slider::Slider(const QString &id)
 
 /*    _content->setMaximumHeight(32);*/
 
-    _appletMenu = new AppletDefsMenu(this, "SliderAppletMenu", this);
+    _appletMenu = new AppletHostMenu(this, "SliderAppletMenu", this, i18n("Slider Menu"));
 
     show();
 }
 
 Slider::~Slider()
-{}
+{
+    removeAllApplets();
+}
+
 
 bool Slider::accept(Applet * applet)
 {
@@ -145,3 +148,4 @@ SessionItem * SliderFactory::createItem()
     return new Slider(generateItemId());
 }
 
+#include "slider.moc"

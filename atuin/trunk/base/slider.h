@@ -19,6 +19,7 @@
 #include "appletdef.h"
 #include "sessionitem.h"
 #include "sessionitemfactory.h"
+#include "applethostmenu.h"
 
 class SliderTray;
 
@@ -31,6 +32,7 @@ class SliderTray;
 */
 class Slider : public EdgeWidget, public AppletHost, public SessionItem
 {
+	Q_OBJECT
 public:
     Slider(const QString & id);
     ~Slider();
@@ -53,7 +55,7 @@ private:
     SliderTray * _tray2;
     EdgeWidgetLayoutBox *_content;
     EdgeWidgetBoxLayout *_mainLayout;
-    AppletDefsMenu * _appletMenu;
+    AppletHostMenu * _appletMenu;
 };
 
 /**
