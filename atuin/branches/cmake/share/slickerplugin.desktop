@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=ServiceType
+X-KDE-ServiceType=Slicker/Plugin
+X-KDE-Derived=KPluginInfo
+Comment=Slicker Plugin
