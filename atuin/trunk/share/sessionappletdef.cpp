@@ -1,16 +1,16 @@
-//
-// C++ Implementation: sessionappletdef
-//
-// Description: 
-//
-//
-// Author: Ulrik Mikaelsson <rawler@rsn.bth.se>, (C) 2004
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
-#include "sessionappletdef.h"
+/***************************************************************************
+         Copyright: 2003-2004 Slicker Team (www.slicker.org)
+ 
+  MAINTAINER: Ulrik Mikaelsson <rawler@users.berlios.de> 
 
+ ***************************************************************************
+ *  This program is free software; you can redistribute it and/or modify   *
+ *  it under the terms of the GNU General Public License as published by   *
+ *  the Free Software Foundation; either version 2 of the License, or      *
+ *  (at your option) any later version.                                    *
+ ***************************************************************************/
+
+#include "sessionappletdef.h"
 #include "sessionapplet.h"
 
 SessionAppletDef::SessionAppletDef(const QString& id, const QString &name, const QString &description, const QString &author)
