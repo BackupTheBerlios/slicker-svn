@@ -87,7 +87,9 @@ void LauncherButton::leaveEvent(QEvent *e)
 
 void LauncherButton::mousePressEvent (QMouseEvent *e)
 {
-    KIconEffect::visualActivate(this, rect());
+    if (e->button() == LeftButton) {
+        KIconEffect::visualActivate(this, rect());
+    }
     QButton::mousePressEvent(e);
 }
 
