@@ -21,6 +21,11 @@
 #include "sessionitem.h"
 #include "sessionitemfactory.h"
 
+#include "appletdef.h"
+#include "applethostmenu.h"
+
+
+
 class CardStack;
 
 class CardTab : public EdgeWidgetLayoutBox
@@ -35,12 +40,16 @@ public:
 
 	void mousePressEvent ( QMouseEvent *e );
 	void mouseReleaseEvent ( QMouseEvent *e );
+	
 
 private:
 	Applet * _applet;
 	QWidget * _icon;
 	QLabel * _label;
 	CardStack * _stack;
+
+
+
 };
 
 /**
@@ -60,15 +69,27 @@ public:
 	virtual void restore(KConfigBase * config);
 	virtual void store(KConfigBase * config);
 	
+	void contextMenuEvent ( QContextMenuEvent *e );
+	
 	bool showApplet(Applet * applet);
 	bool hideApplet(Applet * applet);
 	bool hideAll();
 	
+	QWidget * directChildAt( const QPoint & point );
+	
 protected slots:
 	virtual void edgeChanged(EdgeWidget::ScreenEdge oldEdge);
+	
 private:
 	EdgeWidgetBoxLayout * _layout;
 	CardTab * _emptyStackTab;
+	
+	AppletHostMenu * _hostMenu;
+	KActionMenu *_appletMenu;
+	KAction * _removeAppletAction;
+	Applet * _currentApplet;
+private slots:
+	void slotRemoveCurrentApplet();
 };
 
 /**

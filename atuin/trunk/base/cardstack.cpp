@@ -14,6 +14,11 @@
 #include <qobjectlist.h>
 #include <kdebug.h>
 
+#include <kaction.h>
+#include <kapplication.h>
+#include <qvaluelist.h>
+#include "applet.h"
+
 /*** CardStack *********************/
 
 CardStack::CardStack(const QString & id) : EdgeWidget(NULL, "CardStack"), AppletHost("CardStack"), SessionItem(id)
@@ -22,6 +27,10 @@ CardStack::CardStack(const QString & id) : EdgeWidget(NULL, "CardStack"), Applet
 	_layout->setAutoAdd(true);
 	_layout->setResizeMode( QLayout::Fixed );
 	_emptyStackTab = new CardTab(0L, this);
+	
+	_hostMenu = new AppletHostMenu(this, "CardAppletMenu", this, i18n("Slider Menu"));
+	_appletMenu = 0L;
+	_removeAppletAction = new KAction(i18n("Remove applet"), KShortcut(), this, SLOT(slotRemoveCurrentApplet()), this, "RemoveApplet");
 	show();
 }
 
@@ -91,6 +100,47 @@ void CardStack::store(KConfigBase * config)
 	config->writeEntry("location", location());
 }
 
+void CardStack::contextMenuEvent(QContextMenuEvent *e)
+{
+	QWidget * childWidget = directChildAt(e->pos());
+	_currentApplet = childWidget ? findApplet(childWidget) : 0L;
+	
+	if (_currentApplet)
+	{
+		if (_appletMenu)
+			delete _appletMenu;
+		
+		_appletMenu = new KActionMenu(_currentApplet->name(), this, "AppletMenu");
+		
+		KActionPtrList actionList = _currentApplet->contextActions(childWidget, e->pos());
+		KActionPtrList::Iterator iter;
+		
+		for (iter = actionList.begin(); iter != actionList.end(); iter++)
+			_appletMenu->insert(*iter);
+		
+		_appletMenu->insert(_removeAppletAction);
+		_appletMenu->popup(e->globalPos());
+	}
+	else
+		_hostMenu->popup(e->globalPos());
+    e->accept();
+}
+
+QWidget * CardStack::directChildAt(const QPoint & point)
+{
+	QWidget * childWidget = childAt(point);
+	//while (childWidget && (childWidget->parentWidget() != _content))
+	//		childWidget = childWidget->parentWidget();
+	return childWidget;
+}
+
+void CardStack::slotRemoveCurrentApplet()
+{
+	if (_currentApplet)
+		delete _currentApplet;
+}
+
+
 /*** CardTab **************************/
 CardTab::CardTab(Applet * applet, CardStack * parent) : EdgeWidgetLayoutBox( parent, EdgeWidgetBoxLayout::Colinear, "CardTab" )
 {
@@ -101,6 +151,9 @@ CardTab::CardTab(Applet * applet, CardStack * parent) : EdgeWidgetLayoutBox( par
 	layout()->setMargin(2);
 	setApplet(applet);
 	setBackgroundColor(QColor(0,0,0));
+	
+
+	show();
 }
 
 CardTab::~CardTab()
@@ -142,7 +195,10 @@ void CardTab::mousePressEvent ( QMouseEvent * e )
 {
 	if ((e->button() == LeftButton))
 		_stack->beginPosDrag(e->pos());
-
+	if (e->button() == RightButton) 
+	{
+		//do some stuff in here
+	}
 	e->accept();
 }
 
@@ -151,8 +207,18 @@ void CardTab::mouseReleaseEvent(QMouseEvent *e)
 	if (e->button() == LeftButton)
 		_stack->endPosDrag();
 
+	if (e->button() == RightButton) 
+	{
+		//lets see if we can change the label...
+		_label = new QLabel(i18n("Moved"), this, "CardTabLabel");
+		relayout();
+		
+	}
 	e->accept();
+
 }
+
+
 
 
 /*** CardStackFactory *****************/
