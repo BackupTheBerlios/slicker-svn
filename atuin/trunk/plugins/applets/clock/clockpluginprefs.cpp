@@ -31,11 +31,19 @@ ClockPluginPrefs::ClockPluginPrefs(QWidget * parent, const char *, const QString
 	_radioAnalog = new QRadioButton(i18n("Analog"),_hstylebuttongroup);
 	_radioSlicker = new QRadioButton(i18n("Slicker"),_hstylebuttongroup);
 	
-	_hshowbuttongroup = new QHButtonGroup("Show:",this);
-	_hshowbuttongroup->setInsideSpacing(10);
-	_vbox->addWidget(_hshowbuttongroup);
-	_checkShowSecs = new QCheckBox(i18n("Show Seconds"),_hshowbuttongroup);
-	_checkShowDate = new QCheckBox(i18n("Show Date"),_hshowbuttongroup);
+	_showgroupbox = new QVGroupBox("Show:",this);
+	_showgroupbox->setInsideSpacing(10);
+	_vbox->addWidget(_showgroupbox);
+	_showbox = new QHBox(_showgroupbox);
+	_showbox->setSpacing(10);
+	_checkShowSecs = new QCheckBox(i18n("Show Seconds"),_showbox);
+	_checkShowDate = new QCheckBox(i18n("Show Date"),_showbox);
+	_refreshbox = new QHBox(_showgroupbox);
+	_refreshbox->setSpacing(5);
+	_refreshlabel = new QLabel(i18n("Refresh clock every"),_refreshbox);
+	_refresh = new QLineEdit("1000",_refreshbox);
+	_refresh->setInputMask("D000");
+	_refreshsecondslabel = new QLabel(i18n("seconds"),_refreshbox);
 	
 	_timefontbox = new QVGroupBox(i18n("Time:"),this);
 	_vbox->addWidget(_timefontbox);
@@ -62,6 +70,7 @@ ClockPluginPrefs::ClockPluginPrefs(QWidget * parent, const char *, const QString
 	
 	connect(_checkShowSecs, SIGNAL(toggled(bool)), this, SLOT(slotConfigChanged()));
 	connect(_checkShowDate, SIGNAL(toggled(bool)), this, SLOT(slotConfigChanged()));
+	connect(_refresh, SIGNAL(textChanged(const QString&)), this, SLOT(slotConfigChanged()));
 	
 	connect(_changetimefont, SIGNAL(clicked()), this, SLOT(slotChangeTimeFont()));
 	connect(_changedatefont, SIGNAL(clicked()), this, SLOT(slotChangeDateFont()));
@@ -107,6 +116,8 @@ void ClockPluginPrefs::load()
 	
 	_slickerday->setText(config()->readEntry("SlickerDaySize","20"));
 	_slickermonth->setText(config()->readEntry("SlickerMonthSize","8"));
+	
+	_refresh->setText(config()->readEntry("Refresh","1"));
 	
 	
 	
@@ -167,6 +178,8 @@ void ClockPluginPrefs::save()
 	
 	config()->writeEntry("SlickerDaySize", _slickerday->text());
 	config()->writeEntry("SlickerMonthSize",_slickermonth->text());
+	
+	config()->writeEntry("Refresh",_refresh->text());
 		
 	emit KCModule::changed(false);
 }

@@ -12,12 +12,16 @@
  
 #include "clock.h"
 
+#include <iostream>
+using namespace std;
+
 /**** Clock ****************************/
 
 Clock::Clock(QWidget * parent, const char * name)
 	: QWidget(parent, name)
 {	
 	update();
+	_curSec = ((int)(_datetime.time().second()/_renderSecs)) * _renderSecs;
 	_timer = new QTimer(this);
 	connect(_timer, SIGNAL(timeout()), this, SLOT(update()));
 	_timer->start(500);
@@ -31,7 +35,14 @@ Clock::~Clock()
 void Clock::update()
 {
 	_datetime = QDateTime::currentDateTime();
-	displayTime();
+	int sec = _datetime.time().second();
+	if(sec - _curSec >= _renderSecs || (sec < _renderSecs && _curSec > _renderSecs && sec - _curSec + 60 >= _renderSecs ))
+	{
+		_curSec+=_renderSecs;
+		if(_curSec >= 60)
+			_curSec-=60;
+		displayTime();
+	}
 }
 
 void Clock::displayTime()
@@ -46,6 +57,11 @@ void Clock::setShowSecs(bool showSecs)
 void Clock::setShowDate(bool showDate)
 {
 	_showDate = showDate;
+}
+
+void Clock::setRenderSecs(int renderSecs)
+{
+	_renderSecs=renderSecs;
 }
 
 
@@ -142,7 +158,7 @@ void AnalogClock::paintEvent(QPaintEvent *)
 
 	if(_showSecs)
 	{
-		ang = 360 / 60 * time.second();
+		ang = 360 / 60 * _curSec;
 		p.rotate(ang);
 		p.drawRect(QRect(0,0,clockRect.bottom()/(-2),1));
 		p.rotate(-ang);
@@ -191,7 +207,7 @@ SlickerClock::~SlickerClock()
 {
 }
 
-void SlickerClock::displayTime()
+void SlickerClock::paintEvent(QPaintEvent*)
 {
 	QString s = KGlobal::locale()->formatTime(_datetime.time(),false);
 	_timeLabel->setText(s);
@@ -215,13 +231,17 @@ void SlickerClock::displayTime()
 	p.setBrush(black);
 	
 	p.drawArc(rect,0,360*16);
-	p.drawPie(rect,90*16,(-1)*16*(360 / 60 * _datetime.time().second()));
+	p.drawPie(rect,90*16,(-1)*16*(360 / 60 * _curSec));
 	p.end();
 	
 	p.begin(_secWidget);
 	p.drawPixmap(rect.topLeft(),pix);
 	p.end();
+}
 
+void SlickerClock::displayTime()
+{
+	repaint(rect());
 } 
 
 void SlickerClock::setDateFontSizes(int day, int month)

@@ -88,6 +88,10 @@ void ClockApplet::loadSettings()
 	_clock->setTimeFont(loadFont("Time"));
 	_clock->setDateFont(loadFont("Date"));
 	
+	s = _plugin->config()->readEntry("Refresh","1");
+	_clock->setRenderSecs(s.toInt());
+	
+	_clock->displayTime();
 	_clock->show();
 }
 

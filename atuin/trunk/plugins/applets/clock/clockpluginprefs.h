@@ -19,6 +19,7 @@
 
 #include <qhbuttongroup.h>
 #include <qlayout.h>
+#include <qhbox.h>
 #include <qvgroupbox.h>
 #include <qhgroupbox.h>
 #include <qpushbutton.h>
@@ -52,12 +53,19 @@ private slots:
 private:
 	QHButtonGroup * _hstylebuttongroup;
 	QVBoxLayout * _vbox;
-	QHButtonGroup * _hshowbuttongroup;
 	QRadioButton * _radioPlain;
 	QRadioButton * _radioAnalog;
 	QRadioButton * _radioSlicker;
+	
+	QVGroupBox * _showgroupbox;
+	QHBox * _showbox;
 	QCheckBox * _checkShowSecs;
 	QCheckBox * _checkShowDate;
+	QHBox * _refreshbox;
+	QLabel * _refreshlabel;
+	QLabel * _refreshsecondslabel;
+	QLineEdit * _refresh;
+	
 	QVGroupBox * _timefontbox;
 	QVGroupBox * _datefontbox;
 	QLabel * _timefont;
