@@ -42,10 +42,12 @@ public slots:
 	virtual void displayTime();
 	
 	void setShowSecs(bool showSecs);
+	void setShowDate(bool showDate);
 	
 protected:
 	QDateTime _datetime;
 	bool _showSecs;
+	bool _showDate;
 private:
 	QTimer * _timer;
 	
@@ -65,6 +67,8 @@ public:
 private:
 	void displayTime();
 	QLabel * _timelabel;
+	QLabel * _datelabel;
+	QGridLayout * _grid;
 	
 	
 };

@@ -21,21 +21,25 @@ ClockPluginPrefs::ClockPluginPrefs(QWidget * parent, const char *, const QString
 {
 	_vbox = new QVBox(this);
 	_vbox->setMinimumSize(300,80);
-	_vbox->setSpacing(10);;
-	_hbox = new QHButtonGroup("Style:",_vbox);
-	_hbox->setInsideSpacing(10);
-	_hbox->setExclusive(true);
-	_radioPlain = new QRadioButton(i18n("Plain"),_hbox);
-	_radioAnalog = new QRadioButton(i18n("Analog"),_hbox);
-	_radioSlicker = new QRadioButton(i18n("Slicker"),_hbox);
+	_vbox->setSpacing(10);
+	_hbuttongroup = new QHButtonGroup("Style:",_vbox);
+	_hbuttongroup->setInsideSpacing(10);
+	_hbuttongroup->setExclusive(true);
+	_radioPlain = new QRadioButton(i18n("Plain"),_hbuttongroup);
+	_radioAnalog = new QRadioButton(i18n("Analog"),_hbuttongroup);
+	_radioSlicker = new QRadioButton(i18n("Slicker"),_hbuttongroup);
 	
-	_checkShowSecs = new QCheckBox(i18n("Show Seconds"),_vbox);
+	_hbox = new QHBox(_vbox);
+	_hbox->setSpacing(10);
+	_checkShowSecs = new QCheckBox(i18n("Show Seconds"),_hbox);
+	_checkShowDate = new QCheckBox(i18n("Show Date"),_hbox);
 	
 	connect(_radioPlain, SIGNAL(toggled(bool)), this, SLOT(slotConfigChanged()));
 	connect(_radioAnalog, SIGNAL(toggled(bool)), this, SLOT(slotConfigChanged()));
 	connect(_radioSlicker, SIGNAL(toggled(bool)), this, SLOT(slotConfigChanged()));
 	
 	connect(_checkShowSecs, SIGNAL(toggled(bool)), this, SLOT(slotConfigChanged()));
+	connect(_checkShowDate, SIGNAL(toggled(bool)), this, SLOT(slotConfigChanged()));
 	
 	load();
 }
@@ -60,6 +64,13 @@ void ClockPluginPrefs::load()
 		_checkShowSecs->setChecked(true);
 	else
 		_checkShowSecs->setChecked(false);
+		
+	s = config()->readEntry("showDate", "true");
+	
+	if(s == "true")
+		_checkShowDate->setChecked(true);
+	else
+		_checkShowDate->setChecked(false);
 	
 	emit KCModule::changed(false);
 }
@@ -77,6 +88,11 @@ void ClockPluginPrefs::save()
 		config()->writeEntry("showSecs","true");
 	else
 		config()->writeEntry("showSecs","false");
+		
+	if(_checkShowDate->isChecked())
+		config()->writeEntry("showDate","true");
+	else
+		config()->writeEntry("showDate","false");
 		
 	emit KCModule::changed(false);
 }

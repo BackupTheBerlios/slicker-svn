@@ -19,6 +19,7 @@
 
 #include <qhbuttongroup.h>
 #include <qvbox.h>
+#include <qhbox.h>
 #include <qcheckbox.h>
 #include <qradiobutton.h>
 
@@ -38,12 +39,14 @@ private slots:
 	void slotConfigChanged();
     
 private:
-	QHButtonGroup * _hbox;
+	QHButtonGroup * _hbuttongroup;
 	QVBox * _vbox;
+	QHBox * _hbox;
 	QRadioButton * _radioPlain;
 	QRadioButton * _radioAnalog;
 	QRadioButton * _radioSlicker;
 	QCheckBox * _checkShowSecs;
+	QCheckBox * _checkShowDate;
 };
 
 

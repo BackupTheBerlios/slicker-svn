@@ -72,6 +72,12 @@ void ClockApplet::loadSettings()
 		_clock->setShowSecs(true);
 	else
 		_clock->setShowSecs(false);
+		
+	s = _plugin->config()->readEntry("showDate","true");
+	if(s == "true")
+		_clock->setShowDate(true);
+	else
+		_clock->setShowDate(false);
 	
 	_clock->show();
 }
