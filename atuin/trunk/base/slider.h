@@ -43,7 +43,9 @@ public:
     void mousePressEvent ( QMouseEvent *e );
     void mouseReleaseEvent ( QMouseEvent *e );
     void contextMenuEvent ( QContextMenuEvent *e );
+	
 	QWidget * directChildAt ( const QPoint & point );
+	Applet * appletAt ( const QPoint & point );
     
     virtual void restore(KConfigBase * config);
     virtual void store(KConfigBase * config);

@@ -65,7 +65,6 @@ const QString &AppletHost::name() const
 
 void AppletHost::removeAllApplets()
 {
-	
 	QPtrListIterator<Applet> iter(_applets);
 	QPtrList <Applet> appletList;
 	Applet * applet;

@@ -78,7 +78,7 @@ void Slider::detach(Applet * applet)
 
 void Slider::mousePressEvent ( QMouseEvent * e )
 {
-    if (e->button() == LeftButton)
+	if ((e->button() == LeftButton) && !appletAt(e->pos()))
         beginPosDrag(e->pos());
 
     e->accept();
@@ -86,8 +86,7 @@ void Slider::mousePressEvent ( QMouseEvent * e )
 
 void Slider::mouseReleaseEvent(QMouseEvent *e)
 {
-	QWidget * childWidget = directChildAt(e->pos());
-	Applet * pressedApplet = childWidget ? findApplet(childWidget) : 0L;
+	Applet * pressedApplet = appletAt(e->pos());
     
 	if (e->button() == LeftButton)
 	{
@@ -104,6 +103,12 @@ void Slider::mouseReleaseEvent(QMouseEvent *e)
 	}
 
 	e->accept();
+}
+
+Applet * Slider::appletAt(const QPoint & point)
+{
+	QWidget * childWidget = directChildAt(point);
+	return childWidget ? findApplet(childWidget) : 0L;
 }
 
 QWidget * Slider::directChildAt(const QPoint & point)
