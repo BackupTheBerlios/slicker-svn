@@ -1,7 +1,7 @@
 /***************************************************************************
          Copyright: 2004 Slicker Team (www.slicker.org)
  
-  MAINTAINER: Manuel Uphoff <uppi@users.berlios.de>
+  MAINTAINER: Manuel Uphoff <uppi@slicker.org>
 
  ***************************************************************************
  *  This program is free software; you can redistribute it and/or modify   *
@@ -11,6 +11,9 @@
  ***************************************************************************/
  
 #include "clockapplet.h"
+
+#include <iostream>
+using namespace std;
  
 typedef KGenericFactory <ClockPlugin> ClockPluginFactory;
 K_EXPORT_COMPONENT_FACTORY(slicker_clock, ClockPluginFactory("slicker_clock"))
@@ -33,22 +36,44 @@ ClockPlugin::~ClockPlugin()
 ClockApplet::ClockApplet(SessionAppletDef * appletDef, const QString &id, ClockPlugin * plugin)
 	: SessionApplet(appletDef, id)
 {
-	_clock = new PlainClock(0,"PlainClock");
-	_icon = _clock;
-	
 	_plugin = plugin;
+	_vbox = new QVBox();  
+	_icon = _vbox; 		//Hack so that we can recreate the clock if the config is changed 
+	loadSettings();
+	
+
 	connect(_plugin, SIGNAL(settingsChanged()), this, SLOT(slotSettingsChanged()));
 	
 }
 
 ClockApplet::~ClockApplet()
 {
-
 }
 
 void ClockApplet::slotSettingsChanged()
 {
+	if(_clock != NULL) delete(_clock);
+	loadSettings();
 
+}
+
+void ClockApplet::loadSettings()
+{
+	QString s = _plugin->config()->readEntry("Style","Slicker");
+	if(s == "Plain")
+		_clock = new PlainClock(_vbox);
+	else if(s == "Analog")
+		_clock = new AnalogClock(_vbox);
+	else if(s == "Slicker")
+		_clock = new SlickerClock(_vbox);
+			
+	s = _plugin->config()->readEntry("showSecs","true");
+	if(s == "true")
+		_clock->setShowSecs(true);
+	else
+		_clock->setShowSecs(false);
+	
+	_clock->show();
 }
  
 /***** ClockAppletDef *******************/ 

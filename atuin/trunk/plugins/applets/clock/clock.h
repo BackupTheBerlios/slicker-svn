@@ -1,7 +1,7 @@
 /***************************************************************************
          Copyright: 2004 Slicker Team (www.slicker.org)
  
-  MAINTAINER: Manuel Uphoff <uppi@users.berlios.de>
+  MAINTAINER: Manuel Uphoff <uppi@slicker.org>
 
  ***************************************************************************
  *  This program is free software; you can redistribute it and/or modify   *
@@ -19,6 +19,9 @@
 #include <qlabel.h>
 #include <klocale.h>
 #include <kglobal.h>
+#include <qpainter.h>
+#include <qpixmap.h>
+#include <qlayout.h>
 
 /**
  * Class Clock: Base class for all clocks
@@ -38,9 +41,11 @@ public slots:
 	//empty virtual function to display the updated time, hast to be overwritten by inherited classes 
 	virtual void displayTime();
 	
+	void setShowSecs(bool showSecs);
+	
 protected:
 	QDateTime _datetime;
-
+	bool _showSecs;
 private:
 	QTimer * _timer;
 	
@@ -59,10 +64,39 @@ public:
 	~PlainClock();
 private:
 	void displayTime();
-	bool _showSecs;
 	QLabel * _timelabel;
 	
 	
+};
+
+class AnalogClock : public Clock
+{
+	Q_OBJECT
+public:
+	AnalogClock(QWidget * parent = 0, const char * name = 0);
+	~AnalogClock();
+protected:
+	void paintEvent(QPaintEvent *);
+
+private:
+	void displayTime();
+	
+};
+
+class SlickerClock : public Clock
+{
+	Q_OBJECT
+public:
+	SlickerClock(QWidget * parent = 0, const char * name = 0);
+	~SlickerClock();
+private:
+	void displayTime();
+	QGridLayout * _grid;
+	QLabel * _timeLabel; 
+	QLabel * _dayLabel;
+	QLabel * _monthLabel;
+	QLabel * _yearLabel;
+	QWidget * _secWidget;
 };
 
 #endif

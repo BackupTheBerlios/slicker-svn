@@ -1,7 +1,7 @@
 /***************************************************************************
          Copyright: 2004 Slicker Team (www.slicker.org)
  
-  MAINTAINER: Manuel Uphoff <uppi@users.berlios.de>
+  MAINTAINER: Manuel Uphoff <uppi@slicker.org>
 
  ***************************************************************************
  *  This program is free software; you can redistribute it and/or modify   *
@@ -21,6 +21,8 @@
 
 #include "clock.h" 
 
+#include <qvbox.h>
+
 class ClockAppletDef;
 
 class ClockPlugin : public Plugin
@@ -39,11 +41,13 @@ class ClockApplet : public QObject, public SessionApplet
 public:
 	ClockApplet(SessionAppletDef * appletDef, const QString & id, ClockPlugin * clockPlugin);
 	virtual ~ClockApplet();
+	void loadSettings();
 private slots:
 	void slotSettingsChanged();
 private:
 	ClockPlugin * _plugin;
-	PlainClock * _clock;
+	Clock * _clock;
+	QVBox * _vbox;
 };
 
 class ClockAppletDef : public SessionAppletDef

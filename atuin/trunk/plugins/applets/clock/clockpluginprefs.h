@@ -1,7 +1,7 @@
 /***************************************************************************
          Copyright: 2004 Slicker Team (www.slicker.org)
  
-  MAINTAINER: Manuel Uphoff <uppi@users.berlios.de
+  MAINTAINER: Manuel Uphoff <uppi@slicker.org>
 
  ***************************************************************************
  *  This program is free software; you can redistribute it and/or modify   *
@@ -17,18 +17,33 @@
 #include <kgenericfactory.h>
 #include "pluginprefspage.h"
 
+#include <qhbuttongroup.h>
+#include <qvbox.h>
+#include <qcheckbox.h>
+#include <qradiobutton.h>
+
 class ClockPluginPrefs : public PluginPrefsPage
 {
    Q_OBJECT
 public:
 
-    ClockPluginPrefs(QWidget *parent = 0, const char* name = 0,
-                              const QStringList &args = QStringList());
-    ~ClockPluginPrefs();
+	ClockPluginPrefs(QWidget *parent = 0, const char* name = 0,
+		const QStringList &args = QStringList());
+	~ClockPluginPrefs();
 
-    virtual void save();
-    virtual void load();
-
+	virtual void save();
+	virtual void load();
+	
+private slots:
+	void slotConfigChanged();
+    
+private:
+	QHButtonGroup * _hbox;
+	QVBox * _vbox;
+	QRadioButton * _radioPlain;
+	QRadioButton * _radioAnalog;
+	QRadioButton * _radioSlicker;
+	QCheckBox * _checkShowSecs;
 };
 
 
