@@ -93,3 +93,9 @@ AppletHost * Applet::host()
 {
     return _host;
 }
+
+KActionPtrList Applet::contextActions(QWidget *, const QPoint &)
+{
+	return KActionPtrList();
+}
+

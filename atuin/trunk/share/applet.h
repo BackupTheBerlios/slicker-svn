@@ -14,6 +14,7 @@
 #define APPLET_H
 
 #include <qwidget.h>
+#include <kaction.h>
 #include "appletdef.h"
 #include "applethost.h"
 
@@ -49,6 +50,8 @@ public:
     virtual QWidget * icon();
     virtual const QString & name();
     virtual QWidget * content();
+
+	virtual KActionPtrList contextActions(QWidget * widget, const QPoint & point);
     
     AppletHost * host();
     

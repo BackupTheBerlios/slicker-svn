@@ -54,6 +54,7 @@ public:
     
     void removeAllApplets();
 
+    Applet * findApplet(const QWidget *widget);
     
 protected:
     void registerApplet(Applet *applet);

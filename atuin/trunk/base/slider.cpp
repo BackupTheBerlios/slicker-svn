@@ -12,8 +12,10 @@
 
 #include "slider.h"
 
+#include <kaction.h>
 #include <kapplication.h>
 #include <kdebug.h>
+#include <qvaluelist.h>
 
 #include "applet.h"
 
@@ -31,7 +33,9 @@ Slider::Slider(const QString &id)
 
 /*    _content->setMaximumHeight(32);*/
 
-    _appletMenu = new AppletHostMenu(this, "SliderAppletMenu", this, i18n("Slider Menu"));
+    _hostMenu = new AppletHostMenu(this, "SliderAppletMenu", this, i18n("Slider Menu"));
+	_appletMenu = 0L;
+	_removeAppletAction = new KAction(i18n("Remove applet"), KShortcut(), this, SLOT(slotRemoveCurrentApplet()), this, "RemoveApplet");
 
     show();
 }
@@ -86,10 +90,44 @@ void Slider::mouseReleaseEvent(QMouseEvent *e)
     e->accept();
 }
 
+QWidget * Slider::directChildAt(const QPoint & point)
+{
+	QWidget * childWidget = childAt(point);
+	while (childWidget && (childWidget->parentWidget() != _content))
+		childWidget = childWidget->parentWidget();
+	return childWidget;
+}
+
 void Slider::contextMenuEvent(QContextMenuEvent *e)
 {
-    _appletMenu->popup(e->globalPos());
+	QWidget * childWidget = directChildAt(e->pos());
+	_currentApplet = childWidget ? findApplet(childWidget) : 0L;
+	
+	if (_currentApplet)
+	{
+		if (_appletMenu)
+			delete _appletMenu;
+		
+		_appletMenu = new KActionMenu(_currentApplet->name(), this, "AppletMenu");
+		
+		KActionPtrList actionList = _currentApplet->contextActions(childWidget, e->pos());
+		KActionPtrList::Iterator iter;
+		
+		for (iter = actionList.begin(); iter != actionList.end(); iter++)
+			_appletMenu->insert(*iter);
+		
+		_appletMenu->insert(_removeAppletAction);
+		_appletMenu->popup(e->globalPos());
+	}
+	else
+		_hostMenu->popup(e->globalPos());
     e->accept();
+}
+
+void Slider::slotRemoveCurrentApplet()
+{
+	if (_currentApplet)
+		delete _currentApplet;
 }
 
 void Slider::edgeChanged(EdgeWidget::ScreenEdge oldEdge)

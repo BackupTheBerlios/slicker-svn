@@ -43,9 +43,13 @@ public:
     void mousePressEvent ( QMouseEvent *e );
     void mouseReleaseEvent ( QMouseEvent *e );
     void contextMenuEvent ( QContextMenuEvent *e );
+	QWidget * directChildAt ( const QPoint & point );
     
     virtual void restore(KConfigBase * config);
     virtual void store(KConfigBase * config);
+
+private slots:
+	void slotRemoveCurrentApplet();
 
 protected slots:
     virtual void edgeChanged(EdgeWidget::ScreenEdge oldEdge);
@@ -55,7 +59,10 @@ private:
     SliderTray * _tray2;
     EdgeWidgetLayoutBox *_content;
     EdgeWidgetBoxLayout *_mainLayout;
-    AppletHostMenu * _appletMenu;
+    AppletHostMenu * _hostMenu;
+	KActionMenu *_appletMenu;
+	KAction * _removeAppletAction;
+	Applet * _currentApplet;
 };
 
 /**

@@ -83,4 +83,17 @@ void AppletHost::removeAllApplets()
 	}
 }
 
+Applet * AppletHost::findApplet(const QWidget * widget)
+{
+	QPtrListIterator <Applet> iter(_applets);
+	Applet * applet;
+	
+	for(applet = 0; (applet = iter.current()); ++iter)
+	{
+		if ((applet->content() == widget) || (applet->icon() == widget))
+			return applet;
+	}
+	
+	return 0L;
+}
 
