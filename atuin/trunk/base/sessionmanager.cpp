@@ -124,9 +124,7 @@ SessionItem * SessionManager::loadItem(const QString & id) const
 		if (factory)
 			return factory->loadItem(&config);
 		else
-		{
 			kdError() << "Error finding factory for " << id << endl;
-		}
     }
     return 0L;
 }

@@ -34,9 +34,10 @@ TestPlugin::~TestPlugin()
 TestApplet::TestApplet(SessionAppletDef * appletDef, const QString & id,  TestPlugin * plugin)
  : SessionApplet(appletDef, id)
 {
-    _label = new QLabel(plugin->config()->readEntry("text", "Testing123"), 0); 
+    _label = new QLabel(plugin->config()->readEntry("text", "Testing123"), 0L); 
     _icon = _label;
     _plugin = plugin;
+	_content = new QLabel("MonkeyTesting", 0L);
 
     connect(_plugin, SIGNAL(settingsChanged()), this, SLOT(slotSettingsChanged()));
 }

@@ -20,7 +20,7 @@
 #include "applet.h"
 
 /*** Slider **********************************************************/
-Slider::Slider(const QString &id)
+Slider::Slider(const QString & id)
         : EdgeWidget(NULL, "Slider"), AppletHost("Slider"), SessionItem(id)
 {
     _mainLayout = new EdgeWidgetBoxLayout(this, this, EdgeWidgetBoxLayout::Colinear, "SliderLayout");
@@ -86,10 +86,24 @@ void Slider::mousePressEvent ( QMouseEvent * e )
 
 void Slider::mouseReleaseEvent(QMouseEvent *e)
 {
-    if (e->button() == LeftButton)
-        endPosDrag();
+	QWidget * childWidget = directChildAt(e->pos());
+	Applet * pressedApplet = childWidget ? findApplet(childWidget) : 0L;
+    
+	if (e->button() == LeftButton)
+	{
+		QWidget * contentWidget = pressedApplet ? pressedApplet->content() : 0L;
+		if (contentWidget)
+		{
+			if (contentWidget->isVisible())
+				contentWidget->hide();
+			else
+				contentWidget->show();
+		}
+		else
+		endPosDrag();
+	}
 
-    e->accept();
+	e->accept();
 }
 
 QWidget * Slider::directChildAt(const QPoint & point)
@@ -156,7 +170,6 @@ void Slider::store(KConfigBase * config)
     config->writeEntry("location", location());
 }
 
-
 /*** SliderTray *****************/
 SliderTray::SliderTray(QWidget * parent)
         : QWidget(parent, "SliderTray")
@@ -165,7 +178,7 @@ SliderTray::SliderTray(QWidget * parent)
     setMaximumSize(20, 100);
 }
 
-/*** SliderCreator *****************/
+/*** SliderFactory *****************/
 SliderFactory::SliderFactory() : SessionItemFactory("slider")
 {
 

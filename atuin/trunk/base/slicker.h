@@ -23,6 +23,7 @@
 #include "appletdef.h"
 
 class Slider;
+class CardStack;
 
 /**
 * The Main Slicker-Application class.
@@ -60,6 +61,7 @@ public slots:
     void showMenu(const QPoint &origin);
 
     Slider * newSlider();
+    CardStack * newCardStack();
 
 private:
     static Slicker * _self;

@@ -21,11 +21,12 @@
 #include <qvaluelist.h>
 #include <stdlib.h>
 
-#include "slicker.h"
+#include "appletmanager.h"
+#include "cardstack.h"
 #include "pluginmanager.h"
 #include "sessionmanager.h"
+#include "slicker.h"
 #include "slider.h"
-#include "appletmanager.h"
 
 Slicker * Slicker::_self = NULL;
 
@@ -39,6 +40,7 @@ Slicker::Slicker()
     AppletManager::self();
     
     new SliderFactory();
+	new CardStackFactory();
     SessionManager::self()->restore();
 
     _menu = new KPopupMenu( NULL, "Slicker Menu");
@@ -46,6 +48,7 @@ Slicker::Slicker()
     _appletMenu = new AppletDefsMenu(_menu, "Applet Menu");
 
     _menu->insertItem( "Create Slider", this, SLOT(newSlider()));
+    _menu->insertItem( "Create CardStack", this, SLOT(newCardStack()));
     _menu->insertItem( "Plugin Preferences", PluginManager::self(), SLOT(showPluginPrefs()));
     _appletMenu->plug(_menu);
     _menu->insertSeparator();
@@ -97,6 +100,15 @@ Slider * Slicker::newSlider()
     SessionItemFactory * factory = SessionManager::self()->getFactory("slider");
     if (factory)
         return (Slider*)factory->createItem();
+    else
+        return 0L;
+}
+
+CardStack * Slicker::newCardStack()
+{
+    SessionItemFactory * factory = SessionManager::self()->getFactory("cardstack");
+    if (factory)
+        return (CardStack*)factory->createItem();
     else
         return 0L;
 }
