@@ -133,18 +133,17 @@ It is important to point out that all developer documentation published by the S
   <title>
 Beginning
  </title>
-  <sect1 id="beginning_getting-slicker-cvs">
+  <sect1 id="beginning_getting-slicker-svn">
    <title>
-Getting Slicker CVS
+Getting Slicker SVN
   </title>
   <para>
-To test your plugin, you will be well off getting the Slicker bleeding edge version from CVS, which is really very easy. This will give you an installation of Slicker into your kde installation, and you will need to have access to the administrator password for the last command to work (i.e. the actual installation). For a more complete description of the installation of Slicker CVS, read the <filename>INSTALL.CVS.ATUIN</filename> file found in the atuin folder after the checkout (the first cvs command). Open a console and do the following (when asked for a password at the first cvs command, just press Enter):
+To test your plugin, you will be well off getting the Slicker bleeding edge version from SVN, which is really very easy. This will give you an installation of Slicker into your kde installation, and you will need to have access to the administrator password for the last command to work (i.e. the actual installation). For a more complete description of the installation of Slicker SVN, read the <filename>INSTALL.SVN.ATUIN</filename> file found in the atuin folder after the checkout (the first svn command). Open a console and do the following:
   </para>
   <screen><userinput><prompt>&percnt;</prompt> <command>mkdir</command> <filename class="directory"><replaceable>~/slicker/</replaceable></filename></userinput>
 <userinput><prompt>&percnt;</prompt> <command>mkdir</command> <filename class="directory"><replaceable>~/slicker/src</replaceable></filename></userinput>
 <userinput><prompt>&percnt;</prompt> <command>cd</command> <filename class="directory"><replaceable>~/slicker/src</replaceable></filename></userinput>
-<userinput><prompt>&percnt;</prompt> <command>cvs</command> <option>-z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/slicker login</option></userinput>
-<userinput><prompt>&percnt;</prompt> <command>cvs</command> <option>-z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/slicker co atuin</option></userinput>
+<userinput><prompt>&percnt;</prompt> <command>svn</command> <option>co svn://svn.slicker.org/slicker/atuin/trunk atuin</option></userinput>
 <userinput><prompt>&percnt;</prompt> <command>cd</command> <filename class="directory">atuin</filename></userinput>
 <userinput><prompt>&percnt;</prompt> <command>make</command> <option>-f</option> <filename>Makefile.cvs</filename></userinput></screen>
   <note>

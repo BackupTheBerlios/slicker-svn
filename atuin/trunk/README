@@ -14,7 +14,7 @@ covered by this README file:
      COPYING                      A copy of the license
      DEVELOPERS                   List of Developers
      INSTALL                      Installing procedure for this distribution
-     INSTALL.CVS.ATUIN            Installing procedures for a CVS install
+     INSTALL.SVN.ATUIN            Installing procedures for a SVN install
      README                       THIS FILE!
      README.CONTRIBUTORS          Readme for Contributors
      README.DEVELOPERS            Readme for Developers
@@ -29,7 +29,7 @@ covered by this README file:
      this distribution.
 
      For the installation procedure on how to obtain and install the latest
-     source code from the CVS repository, please see the INSTALL.CVS.ATUIN
+     source code from the SVN repository, please see the INSTALL.SVN.ATUIN
      file that came with this distribution.
 
 

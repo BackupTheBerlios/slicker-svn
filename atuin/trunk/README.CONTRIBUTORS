@@ -2,14 +2,14 @@ TOPICS
 ======
 covered by this README.CONTRIBUTORS file:
 
- 1] MAINTAINING FILES IN CVS
+ 1] MAINTAINING FILES IN SVN
  2] CONTRIBUTORS QUICK-GUIDE TO COMMITING CHANGES TO SOURCES
 
 -----------------------------------------------------------------------------
 
-1) MAINTAINING FILES IN CVS
+1) MAINTAINING FILES IN SVN
 
-     Everyone can't have write-access to our CVS, no. In an attempt to
+     Everyone can't have write-access to our SVN, no. In an attempt to
      provide a structure where everyone can commit changes to the Slicker
      codebase, we have assigned so called 'MAINTAINERS' who are authorized
      to commit changes.
@@ -27,14 +27,14 @@ covered by this README.CONTRIBUTORS file:
 
      Procedure:
 
-        2.0) Download a fresh batch of the latest CVS codebase!
+        2.0) Download a fresh batch of the latest SVN codebase!
 
              Configure, Make & Compile source + Test on your system!
              to know everything works on your system, before
              changeing the source code!          *REQUIREMENT #0!*
 
              If you still got trouble & haven't fixed the complie error.
-             Read atleast INSTALL.CVS.ATUIN file that comes with this
+             Read atleast INSTALL.SVN.ATUIN file that comes with this
              distribution, before sumbmiting/requesting any feedback
              from #slicker or mailling list or homepage!
 
