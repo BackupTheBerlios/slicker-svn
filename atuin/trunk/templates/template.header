@@ -1,0 +1,42 @@
+/***************************************************************************
+          Copyright (C) $YEAR$ Slicker Team (slicker.sf.net) &
+                        $YEAR$ include <AUTHOR> &
+                        $YEAR$ include <MAINTAINER>, for changes &
+                        $YEAR$ include CONTRIBUTORS, for contribs!
+ ***************************************************************************/
+
+/*AUTHOR:*******************************************************************
+ *   NAME:         $AUTHOR$                                                *
+ *   CONTACT INFO: $CONTACT_INFO$                                          *
+ ***************************************************************************/
+
+/*MAINTAINER:***************************************************************
+ *   NAME:         $MAINTAINER$                                            *
+ *   NICKNAME:     $SF_NET_USER$                                           *
+ *   CONTACT INFO: $CONTACT_INFO$                                          *
+ ***************************************************************************/
+
+/*LICENSING:****************************************************************
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   See COPYING file that comes with this distribution.                   *
+ *                                                                         *
+ *   You can also obtain the latest revision of the license at:            *
+ *                                                                         *
+ *          http://www.fsf.org/licenses/licenses.html#GPL                  *
+ ***************************************************************************/
+
+
+--- Delete the rest after this, inlcuding this line, and insert code ;) ---
+
+PS. in /MAINTAINER, should contain info who's authorized to modify the
+                  content in CVS, where e.g. contributors can't access CVS
+                  with write-access.
+
+                   Contact the Project Manager, beforehand, so he'll
+                  assign a/the propper MAINTAICER for this file.
+
+    $CONTAIT_INFO$ can be:  email *required*

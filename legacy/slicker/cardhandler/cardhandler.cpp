@@ -1,0 +1,79 @@
+/*****************************************************************
+
+Copyright (c) 2003 the slicker authors. See file AUTHORS.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+******************************************************************/
+
+#include "cardhandler.h"
+
+#include <kdebug.h>
+
+
+#include "CardApplet.h"
+#include "Card.h"
+
+#include "../carddeskcore/CardManager.h"
+#include "../share/plugininfo.h"
+
+#include "newcarddialog.h"
+#include "TestGui.h"
+#include "CardHandlerPreferences.h"
+#include "manager.h"
+
+CardHandler::CardHandler()
+{
+    kdDebug(155004) << "CardHandler::CardHandler()" << endl;
+    mpPreferences = new CardHandlerPreferences();
+    connect(mpPreferences, SIGNAL(configChanged()), SLOT(configChanged()));
+
+    Manager::useImplementation(SlickerCardManager::instance());
+    Manager::instance()->setSpacing(mpPreferences->mCardspace);
+    Manager::instance()->loadCards();
+
+    mpTestGui = 0;
+    if (mpPreferences->mEnableTestGui) {
+        mpTestGui = new TestGui(0, "TestGui");
+        mpTestGui->show();
+    }
+}
+
+CardHandler::~CardHandler()
+{
+    if (mpTestGui) {
+        delete mpTestGui;
+    }
+    delete mpPreferences;
+}
+
+void CardHandler::configChanged()
+{
+    if (mpPreferences->mEnableTestGui) {
+        if (!mpTestGui) {
+            mpTestGui = new TestGui(0, "TestGui");
+            mpTestGui->show();
+        }
+    } else {
+        if (mpTestGui) {
+            delete mpTestGui;
+            mpTestGui=0;
+        }
+    }
+}
+

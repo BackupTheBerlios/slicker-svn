@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=XEmbedCardApplet
+Comment=An applet supporting the embedding of any single X window.
+Author=Mark Piper
+Provides=AppletOnly
+Version=0.1 alpha
+X-KDE-Library=libxembedapplet
+X-KDE-UniquePlugin=false

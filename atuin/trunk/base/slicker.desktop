@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Slicker
+Comment=The Slicker Desktop
+Exec=slicker
+Type=Application
+Terminal=0
+Categories=Qt;KDE

@@ -1,0 +1,68 @@
+TOPICS
+======
+covered by this README.MAINTAINERS file:
+
+ 1] MAINTAINING FILES IN CVS
+ 2] MAINTAINERS QUICK-GUIDE TO MANAGING SOURCES
+
+-----------------------------------------------------------------------------
+
+1) MAINTAINING FILES IN CVS
+
+     Everyone can't have write-access to our CVS, no. In an attempt to
+     provide a structure where everyone can commit changes to the Slicker
+     codebase, we have assigned so called 'MAINTAINERS' who are authorized
+     to commit changes.
+
+     These, 'MAINTAINERS', will provide the 'screening process' any contributor
+     can turn to, to submit changes for evaluation & consideration, before
+     changes get commited.
+
+
+2) MAINTAINERS QUICK-GUIDE TO MANAGING SOURCES
+
+     Procedure:
+
+        2.0) Request information if Configure, Make & Compile
+             source + Test! worked pre-changes & post-changes!
+                                                        *REQUIREMENT #0!*
+
+        2.1) Request a patch file from the 'CONTRIBUTOR'! *REQUIREMENT #1!*
+
+             NOTE! Patch files should be atomic.. meaning one patch file
+             should NEVER be splitted up and sent to different 'MAINTAINERS'.
+                                                        *REQUIREMENT #2!*
+
+             Does 'CONTRIBUTOR' fail to comply with any of these three
+             requirements, the patch file won't get accepted until
+             'CONTRIBUTOR' corrects patch file.
+
+        2.2) Download a fresh batch of the latest CVS codebase!
+
+        2.3) Apply patch!
+
+        2.4) Configure, Make & Compile source + Test
+
+             Does Compile fail, patch will get rejected untill
+             'CONTRIBUTOR' fixes error(s)!
+
+             Does Compile succeed, but it seems like patch caused more
+             unstableness/bug'iness/etc, patch will get rejected
+             untill 'CONTRIBUTOR' FIXES error(s)/bug(s)!
+
+        2.5) If patch comply's to all of the requirements up to this point,
+             patch will pass for consideration and evaluation, otherwise it
+             will be rejected until CONTRIBUTOR fixes where the patch failed
+             to meet the requirements!
+
+        2.6) Evaluate with your fellow 'DEVELOPERS' & 'MAINTAINERS' what
+             has passed the 'firey depths of torment' :-)
+
+     *repeat procedure * n*
+
+
+
+
+
+---
+Thanks - The Slicker Development Team

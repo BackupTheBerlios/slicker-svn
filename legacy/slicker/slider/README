@@ -1,0 +1,2 @@
+The slider component of Slicker.
+I don't know how the relevant developers plan on designing this, so I've just created a QObject Slider class (an instance of which gets generated from ../core) for you to work from.

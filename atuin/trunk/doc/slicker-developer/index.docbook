@@ -1,0 +1,834 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "/opt/kde3.2/share/apps/ksgmltools2/customization/dtd/kdex.dtd" [
+  <!ENTITY kappname "&slicker;">
+  <!ENTITY package "kdebase">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE" > <!-- change language only here -->   
+]>
+<book lang="en">
+ <bookinfo>
+  <title>
+Writing Plugins for Slicker (Atuin)
+ </title>
+<authorgroup>
+<author>
+<!-- This is just put in as an example.  For real documentation, please 
+     define a general entity in entities/contributor.entities, e.g.
+<!ENTITY George.N.Ugnacious "<personname><firstname>George</firstname><othername>N.</othername><surname>Ugnacious</surname></personname>">
+<!ENTITY George.N.Ugnacious.mail "<email>gnu@kde.org</email>">
+and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
+ -->
+<personname>
+<firstname>Dan</firstname>
+<othername>Leinir Turthra</othername>
+<surname>Jensen</surname>
+</personname>
+<email>leinir@leinir.dk</email>
+</author>
+</authorgroup>
+
+<copyright>
+<year>2004</year>
+<holder>Dan Leinir Turthra Jensen</holder>
+</copyright>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (YYYY-MM-DD) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>2004-01-27</date>
+<releaseinfo>0.0.0</releaseinfo>
+    
+    
+    <abstract>
+    <para>
+In this document, we will create a General Purpose Plugin (gpp) for Slicker called &ldquo;Click Me!&rdquo;. This is basically our version of the classic &ldquo;Hello World&rdquo; program; the simplest possibly program. It features a simple settings dialog, and a tiny applet with a button that says &ldquo;Click me!&rdquo; on, which, if clicked, will present the user with a message box containing the message set in the settings dialog.
+    </para>
+    </abstract>
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdebase</keyword>
+<keyword>Slicker</keyword>
+<keyword>Plugin</keyword>
+<keyword>Developer</keyword>
+<keyword>Click Me!</keyword>
+</keywordset>
+ </bookinfo>
+
+ <chapter id="introduction">
+  <title>
+Introduction
+ </title>
+  <sect1 id="introduction_notes">
+   <title>
+Notes to core developers
+  </title>
+  <itemizedlist>
+   <listitem>
+   <para>
+Slider might resize the _icon to anything the user sets (default 48x48?), unless specifically set to a minimum by the plugin programmer? Maybe for _content as well (default 200x200)?
+   </para>
+
+  </listitem>
+   <listitem>
+   <para>
+Taskbar contra Applet/GPP. Is the Taskbar the only one which is basically stand-alone? (explanation of .desktop files bellow)
+   </para>
+
+  </listitem>
+   <listitem>
+   <para>
+Is the SPR a good idea?
+   </para>
+
+  </listitem>
+
+  </itemizedlist>
+
+  </sect1>
+
+  <sect1 id="introduction_prerequisites">
+   <title>
+Prerequisites
+  </title>
+  <para>
+To follow this tutorial, you should already have knowledge of C++<footnote><para>
+Knowledge of C++ can be gained in many ways, but if you wish to work with KDE, the best way of doing so is by using a tutorial designed for exactly that. One such can be found at the KDE Women website at <ulink url="http://women.kde.org/">http://women.kde.org/</ulink> named &quot;KDevelop 3 And QT 3 For Beginners&quot;.
+</para>
+</footnote> as well as a working installation of KDE 3.2 with headers as well as the KDE SDK.
+  </para>
+  <note>
+   <para>During this tutorial we have decided against using the otherwise brilliant KDE Integrated Development Environment (IDE) <application>KDevelop 3</application> (aka Gideon), because we here try to get as much information about the development of the plugin accross, and not how to do it in one particular IDE. Thus, you can use any text editor of your choice (and in KDE you have quite a few) for coding, though one with code highlighting is a good idea (such as <application>&kate;</application> or <application>&kwrite;</application>).</para>
+  </note>
+
+  </sect1>
+  
+  <sect1 id="introduction_before-we-begin">
+   <title>
+Before we begin...
+  </title>
+  <para>
+This document describes the creation of the Slicker version of the cassic &ldquo;Hello World&rdquo; program, which means we during the tutorial will create what is essentially the simplest possible General Purpose Plugin (gpp) for Slicker. We will decide on a name for this plugin, which will be &ldquo;Click Me!&rdquo;, because of what we will eventually want the plugin to do. We want it to contain a single button, with the text &ldquo;Click me!&rdquo; on it, which, if clicked, will present the user with a message box containing a message which is set in the plugin's settings dialog, which we will also create. If the plugin is placed in the Slider, it will show only the button, while if it is in a Card, it will show the button as an icon, and as the card content a label, containing the message.
+  </para>
+
+  </sect1>
+
+  <sect1 id="introduction_a-note-on-language">
+   <title>
+A note on language
+  </title>
+  <para>
+It is important to point out that all developer documentation published by the Slicker Development Team is written in English. This is a decision which was made on the assumption that most people know English good enough to read and understand it, and because we this way will avoid translation problems regarding terminology in the coding practices, as well as a unified code, because all comments and code alike are in the same language. This is an international development effort, and thus we need the most widely spoken language, and the choice fell on English. Thank you in advance for your understanding regarding this.
+  </para>
+
+  </sect1>
+
+
+ </chapter>
+
+ <chapter id="beginning">
+  <title>
+Beginning
+ </title>
+  <sect1 id="beginning_getting-slicker-cvs">
+   <title>
+Getting Slicker CVS
+  </title>
+  <para>
+To test your plugin, you will be well off getting the Slicker bleeding edge version from CVS, which is really very easy. This will give you an installation of Slicker into your kde installation, and you will need to have access to the administrator password for the last command to work (i.e. the actual installation). For a more complete description of the installation of Slicker CVS, read the <filename>INSTALL.CVS.ATUIN</filename> file found in the atuin folder after the checkout (the first cvs command). Open a console and do the following (when asked for a password at the first cvs command, just press Enter):
+  </para>
+  <screen><userinput><prompt>&percnt;</prompt> <command>mkdir</command> <filename class="directory"><replaceable>~/slicker/</replaceable></filename></userinput>
+<userinput><prompt>&percnt;</prompt> <command>mkdir</command> <filename class="directory"><replaceable>~/slicker/src</replaceable></filename></userinput>
+<userinput><prompt>&percnt;</prompt> <command>cd</command> <filename class="directory"><replaceable>~/slicker/src</replaceable></filename></userinput>
+<userinput><prompt>&percnt;</prompt> <command>cvs</command> <option>-z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/slicker login</option></userinput>
+<userinput><prompt>&percnt;</prompt> <command>cvs</command> <option>-z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/slicker co atuin</option></userinput>
+<userinput><prompt>&percnt;</prompt> <command>cd</command> <filename class="directory">atuin</filename></userinput>
+<userinput><prompt>&percnt;</prompt> <command>make</command> <option>-f</option> <filename>Makefile.cvs</filename></userinput></screen>
+  <note>
+   <para>Before running the next command, you should make sure your KDEDIR variable is set up properly. A lot of distributions fail to do this, for some reason. To find out if it is set, type echo &dollar;KDEDIR. The result shold be a folder, wich will often be /usr or /opt/kde3. If you do not get a result, type <userinput><command>export</command> <option>KDEDIR=&dollar;(kde-config --prefix)</option></userinput>.</para>
+  </note>
+  <screen><userinput><prompt>&percnt;</prompt> <command>./configure</command> <option>--prefix=$<envar>KDEDIR</envar></option></userinput>
+<userinput><prompt>&percnt;</prompt> <command>make</command></userinput>
+<userinput><prompt>&percnt;</prompt> <command>su</command> <option>-c "make install"</option></userinput></screen>
+
+  </sect1>
+
+  <sect1 id="beginning_creating-the-framework">
+   <title>
+Creating the framework
+  </title>
+  <para>
+As with all KDE programs, which this basically is, we start out by creating a framework for the plugin. This is done in the same way all programs are started in KDE, with the script <application>KAppTemplate</application>, included in the KDE SDK package. Simply select a spot for the code (a good place would be a folder Programming in your Documents folder in your Home folder), open a console there (just right click on the folder in Konqueror, select <interface>Actions</interface> and click on <interface>Open Terminal Here</interface>). Run the <command>kapptemplate</command> script. If you have not run it before, it will ask you a set of questions, to define some standards for further use. Answer these the best way you can. It is a good idea to answer <symbol>.</symbol> (period) to the default application directory.
+  </para>
+  <para>
+When it has asked these, it will then start asking you about the program you are about to code. You wish to create a &ldquo;Full featured KDE application&rdquo;, which is the default. Then it asks for the name of the application. Write ClickMe here, as special letters (exclamation marks, spaces and so on) aren't supported. This is the first version of it, so we will write 0.1 there. The rest are rather good defaults, so we will just go with those (just press <keycap>Enter</keycap>). The following is a transscript of my <application>KAppTemplate</application> generation.
+  </para>
+  <screen>
+KAppTemplate v1.1.1 (C) 2003 Kurt Granroth &lt;granroth@kde.org&gt;
+
+Please select the type of framework you wish to generate
+1. Full featured KDE application [default]
+2. Full featured KPart application
+3. KPart plugin
+4. Convert existing source to automake/autoconf framework
+Choose [1-4]: 1
+
+What is the application's proper name [default: KMyApp]
+: ClickMe
+
+What is the application's version [default: 0.1]
+: 0.1
+
+Where should I create this [default: ./clickme-0.1]
+:
+Going with default root './clickme-0.1'
+
+What is your name [default: Dan Leinir Turthra Jensen]
+:
+Going with default author 'Dan Leinir Turthra Jensen'
+
+What is your email address [default: leinir@leinir.dk]
+:
+Going with default email address 'leinir@leinir.dk'
+
+Here is what I have:
+The app: ClickMe v0.1
+Installed in: ./clickme-0.1
+Author: Dan Leinir Turthra Jensen &lt;leinir@leinir.dk&gt;
+
+Is this correct (Y/n)?
+:
+
+OK, Here we go!! 
+(here comes a lot of file copying and likewise generation of files)</screen>
+  <para>
+The first thing you now want to do, is to go into the folder you just created, and then further into the <filename class="directory">clickme</filename> folder in that. There are a lot of files in here, and you want to delete all exept <filename>Makefile.in</filename> as we will be re-generating the rest in the next chapter. What you have just done, is to make it easy to distribute your new plugin, when you are done with it. This is explored further in <xref linkend="distributing-your-plugin" />.
+  </para>
+
+  </sect1>
+
+  <sect1 id="beginning_defining-conventions">
+   <title>
+Defining conventions
+  </title>
+  <para>
+To be able to navigate our code more easily, we need to define a set of naming conventions. There are a series of nessecary parts to a Slicker plugin, one is the Plugin itself, but there are also other parts, namely the Applet, and the Applet Definition, known as Applet and AppletDef respectively. Thus we set down the conventions that functions are called first the plugin's name ClickMe, and then the name of the section.
+  </para>
+  <para>
+We also set down the convention of source code file naming. The plugin's own source code is called <filename>clickme.cpp</filename> and the header <filename>clickme.h</filename>, while the preferences has a &ldquo;prefs&rdquo; suffix to the name, giving us <filename>clickmeprefs.cpp</filename> and <filename>clickmeprefs.h</filename>.
+  </para>
+  <para>
+All of this information boils down to the following set of names for our classes:
+  </para>
+  <itemizedlist>
+   <listitem>
+   <para>
+The plugin itself
+   </para>
+   <itemizedlist>
+    <listitem>
+    <para>
+<classname>ClickMePlugin</classname>
+    </para>
+
+   </listitem>
+    <listitem>
+    <para>
+<classname>ClickMeApplet</classname>
+    </para>
+
+   </listitem>
+    <listitem>
+    <para>
+<classname>ClickMeAppletDef</classname>
+    </para>
+
+   </listitem>
+    <listitem>
+    <para>
+<classname>ClickMePluginFactory</classname>
+    </para>
+
+   </listitem>
+
+   </itemizedlist>
+
+  </listitem>
+   <listitem>
+   <para>
+Settings dialog
+   </para>
+   <itemizedlist>
+    <listitem>
+    <para>
+<classname>ClickMePreferences</classname>
+    </para>
+
+   </listitem>
+    <listitem>
+    <para>
+<classname>ClickMePreferencesFactory</classname>
+    </para>
+
+   </listitem>
+
+   </itemizedlist>
+
+  </listitem>
+
+  </itemizedlist>
+
+  </sect1>
+
+
+ </chapter>
+
+ <chapter id="coding-and-explaining-the-plugin">
+  <title>
+Coding and Explaining the Plugin
+ </title>
+  <sect1 id="coding_the-plugin">
+   <title>
+The plugin itself
+  </title>
+  <para>
+The plugin consists of four things. The plugin itself, an applet, a definition of the applet, and a widget factory. The names for these were decided on in <xref linkend="beginning_defining-conventions" />, but they need to be fleshed out as well. Mainly, the interest for us falls on the two parts in the <filename>clickme.cpp</filename> file that we do not define in <filename>clickme.h</filename> called <varname>_content</varname> and <varname>_icon</varname>. These two define the main parts the user sees of the plugin. <varname>_content</varname> is the content of the plugin when placed in a card, while <varname>_icon</varname> is the little icon either in the top right corner of a card (when the card is placed on the lower screen border), or is the only thing showing when the plugin is placed in the Slider.
+  </para>
+  <note>
+   <para>Please note that it is of vital importance to the look of Slicker that your plugin does not take up more space for content than around 200 pixels square, and 64 pixels square for the icon. It is also to your advantage to have the icon be considerably smaller in size, or drawn in a way which is easily resized to any required size. If you do make the content larger than the around 200 pixels square, please take care that it is rearranged when moved around the edges, so that when it is on the side edges, it is 200 pixels tall, and when it is on the bottom and top edges it is 200 pixels wide.</para>
+  </note>
+  <para>
+Our plugin has a button as the icon, and a single label as the content. We have a button as the icon because we want its particular, single functionality to be available when the plugin is placed in the Slider. We choose the content to be a label because we want this to be very simple. It can be replaced with any container, and this container filled with anything you might want (the same of course goes for the icon, but please note the size restrictions defined in the comment above).
+  </para>
+  <para>
+The <methodname>ClickMePlugin::ClickMePlugin()</methodname> constructor returns a definition of the plugin, and thus it is very important that the deconstructor deletes <varname>_appletDef</varname>, because it otherwise leaves the entire plugin in memory, if you unload it in Slicker. The <methodname>ClickMeAppletDef::ClickMeAppletDef()</methodname> constructor creates a definition of the applet, as used by the <methodname>ClickMePlugin::ClickMePlugin()</methodname> constructor, but also has a function <function>createApplet()</function>, which creates a new applet, using the <methodname>ClickMeApplet::ClickMeApplet()</methodname> constructor. This circular dependency requires us to define the class before actually defining it (thus the &ldquo;class ClickMeAppletDef&rdquo; line in the top of <filename>clickme.h</filename>).
+  </para>
+  <para>
+The <methodname>ClickMeApplet::ClickMeApplet()</methodname> constructor is where most of what interest the average Slicker plugin programmer happens. This is where you contruct the look and feel of the <varname>_icon</varname> and <varname>_content</varname> parts of the plugin. Where in the other functions you just replace &ldquo;ClickMe&rdquo; with anything you call your own applet, this is where you put in content. In our plugin, we simply create a QPushButton and a QLabel and let <varname>_icon</varname> and <varname>_content</varname> respectively eqial those. Then we connect the <function>clicked()</function> signal from the push button to a <function>buttonClicked()</function> function and also the signal for changed settings to the <function>settingsChanged()</function> slot. Any of these slots can of course be changed to anything else, but it is probably a good idea to leave the <function>settingsChanged()</function> slot alone, other than added settings.
+  </para>
+  <note>
+   <para>In stead of letting the <varname>_content</varname> and <varname>_icon</varname> widgets equal just a label or button, you make them be just about anything, and of most interest will probably be any type of cointainer, and for the icon very likely one you can draw directly on, so you can either put an icon on it, or generate the contents dynamically. Something which is of course also of interest to some plugins' <varname>_content</varname> field.</para>
+  </note>
+   <sect2>
+    <title>
+Header (<filename>clickme.h</filename>)
+   </title>
+   <programlisting linenumbering="numbered">
+#ifndef CLICKME_H
+#define CLICKME_H
+
+#include &lt;kconfigbase.h&gt;
+#include &lt;kdebug.h&gt;
+#include &lt;kgenericfactory.h&gt;
+#include &lt;qlabel.h&gt;
+#include &lt;qmessagebox.h&gt;
+#include &lt;qpushbutton.h&gt;
+#include &lt;slicker/plugin.h&gt;
+#include &lt;slicker/applet.h&gt;
+
+class ClickMeAppletDef;
+
+class ClickMePlugin : public Plugin
+{
+    Q_OBJECT
+public:
+    ClickMePlugin(QObject *parent, const char *name, const QStringList &amp;args);
+    virtual ~ClickMePlugin();
+private:
+    ClickMeAppletDef * _appletDef;
+};
+
+class ClickMeApplet : public QObject, public Applet
+{
+    Q_OBJECT
+public:
+    ClickMeApplet(AppletDef * appletDef, ClickMePlugin * clickmePlugin);
+    virtual ~ClickMeApplet();
+private slots:
+    void slotSettingsChanged();
+    void buttonClicked();
+private:
+    ClickMePlugin * _plugin;
+    QPushButton * _button;
+    QLabel * _label;
+};
+
+class ClickMeAppletDef : public AppletDef
+{
+public:
+    ClickMeAppletDef(ClickMePlugin * plugin);
+    virtual ~ClickMeAppletDef();
+    
+    Applet * createApplet();
+private:
+    ClickMePlugin * _plugin;
+};
+#endif
+
+   </programlisting>
+
+   </sect2>
+
+   <sect2>
+    <title>
+Implementation (<filename>clickme.cpp</filename>)
+   </title>
+   <programlisting linenumbering="numbered">
+#include "clickme.h"
+
+typedef KGenericFactory&lt;ClickMePlugin&gt; ClickMePluginFactory;
+K_EXPORT_COMPONENT_FACTORY( slicker_clickme, ClickMePluginFactory("slicker_clickme") );
+
+/****** ClickMePlugin *****************************/
+ClickMePlugin::ClickMePlugin(QObject *parent, const char *name, const QStringList &amp;/*args*/)
+ : Plugin(ClickMePluginFactory::instance(), parent, name)
+{
+    _appletDef = new ClickMeAppletDef(this);
+}
+ClickMePlugin::~ClickMePlugin()
+{
+    delete _appletDef;
+}
+
+/****** ClickMeApplet *****************************/
+ClickMeApplet::ClickMeApplet(AppletDef * appletDef, ClickMePlugin * plugin)
+ : Applet(appletDef)
+{
+    _label = new QLabel(plugin->config()->readEntry("message", "This is a message"), 0); 
+    _button = new QPushButton("Click Me!", 0, 0);
+    _icon = _button;
+    _content = _label;
+    _plugin = plugin;
+    connect(_plugin, SIGNAL(settingsChanged()), this, SLOT(slotSettingsChanged()));
+    connect(_button, SIGNAL(clicked()), this, SLOT(buttonClicked()));
+}
+ClickMeApplet::~ClickMeApplet()
+{
+}
+void ClickMeApplet::slotSettingsChanged()
+{
+    _label->setText(_plugin->config()->readEntry("message", "This is a message"));
+}
+void ClickMeApplet::buttonClicked()
+{
+    QMessageBox::information(0, "Click Me!", _plugin->config()->readEntry("message", "This is a message"), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+}
+
+/****** ClickMeAppletDef **************************/
+ClickMeAppletDef::ClickMeAppletDef(ClickMePlugin * plugin)
+ : AppletDef("ClickMe!", "Click Me and show a message!", "Dan Jensen")
+{
+    _plugin = plugin;
+}
+
+ClickMeAppletDef::~ClickMeAppletDef()
+{
+}
+
+Applet * ClickMeAppletDef::createApplet()
+{
+    return new ClickMeApplet(this, _plugin);    
+}
+
+#include "clickme.moc"
+
+   </programlisting>
+
+   </sect2>
+
+
+  </sect1>
+
+  <sect1 id="coding_settings-dialog">
+   <title>
+Settings dialog
+  </title>
+  <para>
+The settings dialog is basically just like any other settings dialog in any other KDE program, though with a few extensions to the ordinary package. You only have two classes here, the <classname>ClickMePreferences</classname> and <classname>ClickMePreferencesFactory</classname> classes, only one of which needs to be fleshed out by you. The <function>ClickMePreferences(QWidget *parent = 0, const char* name = 0, const QStringList &amp;args = QStringList())</function> function itself, it's deconstructor and the <methodname>ClickMePreferences::load()</methodname> and <methodname>ClickMePreferences::save()</methodname> functions are all the required functions.
+  </para>
+  <para>
+<methodname>ClickMePreferences::load()</methodname> and <methodname>ClickMePreferences::save()</methodname> take care of the initial setup, and final save of settings, which is why we don't load the string into the line edit in the constructor function, as you can see bellow.
+  </para>
+  <para>
+The <function>ClickMePreferences</function> constructor contains the layout of the settings dialog, and also sets up the connections between slots and actions of the settings dialog, here the line edit. At the end of the constructor, the <methodname>ClickMePreferences::load()</methodname> function is called, which sets up all the default values, or load the old settings.
+  </para>
+  <para>
+We will now look at the privates <methodname>ClickMePreferences::textChanged()</methodname>, <methodname>ClickMePreferences::_label</methodname> and <methodname>ClickMePreferences::_lineEdit</methodname>. The label and line edit are simply the two widgets used above, while the <methodname>ClickMePreferences::textChanged()</methodname> slot is the function which is connected to the line edit content changes.
+  </para>
+  <para>
+There are here no size restrictions outside of those set down in the KDE design guidelines, that a KCM dialog inside the KDE Control Center must fit on an 800x600 screen, and you can thus put anything on it, as long as it fits.
+  </para>
+  <note>
+   <para>Now, it is not important to include a settings dialog with a plugin, but it is a very very good idea. And besides, since it has been made as easy as it is, it would be silly not to.</para>
+  </note>
+   <sect2>
+    <title>
+Header (<filename>clickmeprefs.h</filename>)
+   </title>
+   <programlisting linenumbering="numbered">
+#ifndef CLICKMEPREFERENCES_H
+#define CLICKMEPREFERENCES_H
+
+#include &lt;kcmodule.h&gt;
+#include &lt;kgenericfactory.h&gt;
+#include &lt;qlabel.h&gt;
+#include &lt;qlineedit.h&gt;
+#include &lt;qstring.h&gt;
+#include &lt;slicker/pluginprefspage.h&gt;
+
+class ClickMePreferences : public PluginPrefsPage
+{
+   Q_OBJECT
+public:
+    ClickMePreferences(QWidget *parent = 0, const char* name = 0, const QStringList &amp;args = QStringList());
+    ~ClickMePreferences();
+
+    virtual void save();
+    virtual void load();
+
+private slots:
+    void textChanged();
+
+private:
+   QLabel *_label;
+   QLineEdit *_lineEdit;
+};
+
+#endif
+
+   </programlisting>
+
+   </sect2>
+
+   <sect2>
+    <title>
+Implementation (<filename>clickmeprefs.cpp</filename>)
+   </title>
+   <programlisting linenumbering="numbered">
+#include "clickmeprefs.h"
+
+typedef KGenericFactory&lt;ClickMePreferences&gt; ClickMePreferencesFactory;
+K_EXPORT_COMPONENT_FACTORY( kcm_slicker_clickme, ClickMePreferencesFactory( "kcm_slicker_clickme" )  )
+
+ClickMePreferences::ClickMePreferences(QWidget *parent, const char* /*name*/, const QStringList &amp;args)
+ : PluginPrefsPage(ClickMePreferencesFactory::instance(), parent, args)
+{
+    _lineEdit = new QLineEdit(this, "Text");
+    _lineEdit->setGeometry(0, 22, 300, 22);
+    _label = new QLabel(_lineEdit, "Write your &amp;message here:", this);
+    _label->resize(300, 22);
+    connect(_lineEdit, SIGNAL(textChanged(const QString&amp; )), this, SLOT(textChanged()));
+    
+    load();
+}
+
+ClickMePreferences::~ClickMePreferences()
+{
+}
+
+void ClickMePreferences::textChanged()
+{
+    emit KCModule::changed(true);   
+}
+
+void ClickMePreferences::load()
+{
+    _lineEdit->setText(config()->readEntry("message", "This is a message"));
+    emit KCModule::changed(false);
+}
+void ClickMePreferences::save()
+{
+    config()->writeEntry("message", _lineEdit->text());
+    emit KCModule::changed(false);
+}
+
+#include "clickmeprefs.moc"
+
+   </programlisting>
+
+   </sect2>
+
+
+  </sect1>
+
+  <sect1 id="coding_makefile-dot-am">
+   <title>
+<filename>Makefile.am</filename>
+  </title>
+  <para>
+<filename>Makefile.am</filename> is where you define how the source should be compiled and where to install the finished product.
+  </para>
+  <para>
+While the name of the source files is up to the person writing the plugin, and while it is not vitally important, it is good coding practice to create the plugin and settings dialog as libraries with a specific prefix on the name. The plugin should be called slicker_* and the settings dialog kcm_slicker_*, where the * both times is the name of the plugin, which in this case of course is clickme.
+  </para>
+  <para>
+When it comes to installing our plugin is where the result of the <command>kapptemplate</command> script comes in very handy, because now we have a very wide range of variables to hand that we can use in deciding. This means we don't have to worry about installation much, and can leave it up to <command>autoconf</command>. Next is a listing of the whole <filename>Makefile.am</filename> as it should look when you're done with it, and after that we will discuss each line of the file in detail, and find out why it's there.
+  </para>
+  <programlisting linenumbering="numbered">
+INCLUDES = $(all_includes)
+METASOURCES = AUTO
+
+kde_module_LTLIBRARIES = slicker_clickme.la kcm_slicker_clickme.la
+
+slicker_clickme_la_SOURCES = clickme.cpp
+slicker_clickme_la_LDFLAGS = -module $(KDE_PLUGIN)
+slicker_clickme_la_LIBADD = $(kde_libraries)/libslicker_share.la $(kde_libraries)/libslicker_base.la
+
+kcm_slicker_clickme_la_SOURCES = clickmeprefs.cpp
+kcm_slicker_clickme_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
+kcm_slicker_clickme_la_LIBADD = $(LIB_KDEUI) $(kde_libraries)/libslicker_share.la
+
+servicedir = $(kde_servicesdir)
+service_DATA = slicker_clickme.desktop
+noinst_HEADERS = clickme.h clickmeprefs.h
+
+kcm_DATA = slicker_clickme_config.desktop
+kcmdir = $(kde_servicesdir)/kconfiguredialog
+  </programlisting>
+  <para>
+Line one makes sure that the includes are included properly, and line two makes sure that all sources are compiled.
+  </para>
+  <para>
+Line four describes what the names of the library files are going to be. It is vital that these have the slicker_ and kcm_slicker_ prefixes.
+  </para>
+  <para>
+Lines 6 through 8 tell make that <filename>slicker_clickme.la</filename> is made by compiling <filename>clickme.cpp</filename> (line 6 is where you put extra source files as well, should you wish to extend the plugin with further functions). Lines 10 through 12 does the same for the settings dialog.
+  </para>
+  <para>
+Lines 14 tells make where to put the plugin's desktop file, and line 15 tells it what the desktopfile's filename is.
+  </para>
+  <para>
+Line 16 tells make not to install the header files (this will otherwise happen automatically). Any header file you wish to install shold <emphasis>not</emphasis> be listed here.
+  </para>
+  <para>
+Lines 18 and 19 tells make about the second desktop file the same way it did for the plugin's desktop file.
+  </para>
+
+  </sect1>
+
+  <sect1 id="coding_desktop-files">
+   <title>
+The <literal role="extension">.desktop</literal> files
+  </title>
+  <para>
+The desktop files are used by Slicker to find out what is what. Is is vital that they are named in the way described here, i,e, <filename>slicker_*.desktop</filename> and <filename>slicker_*_config.desktop</filename>, because this is how Slicker finds out, wether the <literal role="extension">.desktop</literal> file belongs to Slicker or not.
+  </para>
+  <para>
+Basically, thoug, if you are not so interested in finding out what each line means, you can just copy/paste it and replace anything which reads clickme with the name of your plugin, and anything reffering to it (such as the version number, my name, e-mail, website and so on) to the appropriate values. Please remember to rename the X-KDE-FactoryName=ClickMePreferencesFactory to the right name (you defined this in the top of the <filename>clickmeprefs.cpp</filename> file).
+  </para>
+  <para>
+The next is a description of the less obvious names. I will not insult your intelligence by explaining such lines as X-KDE-PluginInfo-Author, ...Email. 
+  </para>
+  <para>
+X-KDE-PluginInfo-Category tells Slicker which gategory the plugin is. Accepted values are GPP, Taskbar and Applet. GPP is a plugin which can be placed in both a Card and the Slider, whlie an Applet can be placed only in a Card. A Taskbar is a self-contained applet.
+  </para>
+  <para>
+X-KDE-PluginInfo-Depends tells Slicker if it should load another plugin before loading this. The value is the X-KDE-PluginInfo-Name name for that/ those plugin(s).
+  </para>
+  <para>
+X-KDE-PluginInfo-EnabledByDefault is a rather dangerous setting, and it should never be set to true, unless you are cleared with the Slicker Development Team. It will cause Slicker to load the plugin on startup, if Slicker does not find any information about it. This is almost never what you want, so you should always leave this at false.
+  </para>
+  <para>
+Name and Comment are just that, and these two can be internationalised in the same way any <literal role="extension">.desktop</literal> file is, namely by putting a &lsqb;countrycode&rsqb; before the equals sign. A list of these country codes can be found on the KDE internationalisation homepage at <ulink url="http://i18n.kde.org/">http://i18n.kde.org/</ulink>.
+  </para>
+   <sect2>
+    <title>
+Plugin (<filename>slicker_clickme.desktop</filename>)
+   </title>
+   <programlisting linenumbering="numbered">
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=Slicker/Plugin
+
+X-KDE-Library=slicker_clickme
+X-KDE-PluginInfo-Author=Dan Jensen
+X-KDE-PluginInfo-Email=admin@leinir.dk
+X-KDE-PluginInfo-Name=slicker_clickme
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://slicker.sourceforge.net/
+X-KDE-PluginInfo-Category=GPP
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=false
+
+Name=ClickMe!
+Comment=Click me and get your message!
+
+   </programlisting>
+
+   </sect2>
+
+   <sect2>
+    <title>
+Settings (<filename>slicker_clickme_config.desktop</filename>)
+   </title>
+   <programlisting linenumbering="numbered">
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=KCModule
+
+X-KDE-ModuleType=Library
+X-KDE-Library=slicker_clickme
+X-KDE-FactoryName=ClickMePreferencesFactory
+X-KDE-ParentApp=slicker_clickme
+X-KDE-ParentComponents=slicker_clickme
+
+Name=ClickMe!
+Comment=Click me and get your message!
+   </programlisting>
+
+   </sect2>
+
+
+  </sect1>
+
+  <sect1 id="coding_documentation">
+   <title>
+Documentation
+  </title>
+  <para>
+Writing documentation for KDE programs has since the decision of using DocBook become extrodinarily simple. When you created the framework using <application>KAppTemplate</application>, you also created a simple <literal role="extension">.docbook</literal> template in the <filename class="directory">doc/clickme/</filename> subfolder to the main source folder. You will find a file called <filename>index.docbook</filename> in here. As it says in the top of this file, you should delete it and use <filename>template.docbook</filename> in stead. The file itself contains all the information you will need to write documentation for any program, but please note that you should always keep to the instructions regarding documentation structure in the file to keep the Slicker documentation clean. If you need screenshots to go with it, please keep to the instructions set forward in the next chapter regarding icon set, widget style and so on. The KDE Documentation Team found at <ulink url="http://i18n.kde.org/doc/">http://i18n.kde.org/doc/</ulink>
+  </para>
+  <note>
+<para>You may have problems finding the <filename>template.docbook</filename> file, but if this happens, please visit us in &num;slicker on irc.freenode.net and ask someone to send you the <filename>template.docbook</filename>.</para>
+  </note>
+
+  </sect1>
+
+  <sect1 id="coding_installation">
+   <title>
+Installation of the plugin
+  </title>
+  <para>
+This the most simple part of all this is made possible by <application>KAppTemplate</application> which we ran in <xref linkend="beginning_creating-the-framework" /> and our work with the <filename>Makefile.am</filename> file. This means that to install the plugin, all we need to do is a classic <userinput><command>./configure</command> <option>--prefix=&dollar;(kde-config --prefix)</option>; <command>make</command>; <command>make</command> <option>install</option></userinput> (that is, of course, if there are no errors). Also RPMs are made easy using the <application>KAppTemplate</application> framework, though that is outside of the scope of this chapter (find more information on this in <xref linkend="distributing-your-plugin" /> bellow).
+  </para>
+
+  </sect1>
+
+
+ </chapter>
+
+ <chapter id="distributing-your-plugin">
+  <title>
+Distributing your plugin
+ </title>
+  <sect1>
+   <title>
+Rights
+  </title>
+  <para>
+While Slicker itsef is distributed under the Copyleft GPL license, you have the right to distribute your plugin under any license you see fit, because it's your code and not the property of the Slicker team. When this is said, of course, we kindly ask that you keep the standards of programming set out in this and other official documents from the Slicker deveopment team, so that Slicker, even with a large amount of third-party plugins, remains easy to use by novice and advanced users alike.
+  </para>
+
+  </sect1>
+
+  <sect1 id="distributing_methods">
+   <title>
+Methods
+  </title>
+  <sect2 id="distribution_methods_tarball">
+  <title>
+Tarball
+  </title>
+  <para>
+The simplest way of distributing your application is by the traditional tarball. To make one such, first run <userinput><command>make</command> <option>distclean</option></userinput> on your program, and delete the <filename class="directory">autom4te.cache</filename> folder, and then do the following in the parent folder to your source code (in this case that means Programming, if you followed the instructions in <xref linkend="beginning_creating-the-framework" />):
+  </para>
+  <screen>
+<userinput><command>tar</command> <option>-cf</option> <filename>clickme-0.1.tar</filename> <filename class="directory">clickme-0.1/</filename></userinput></screen>
+  <para>
+This will create an uncompressed file called <filename>clickme-0.1.tar</filename>, containing all the files from the folder <filename class="directory">clickme-0.1/</filename> and all subfolders and files under it. Now, depending on wether you want high compression or high compatability, you either run <command>gzip</command> (compatability) or <command>bzip2</command> (high compression) on the <filename>clickme-0.1.tar</filename> file by doing <userinput><command>&lt;programname&gt;</command> <filename>clickme-0.1.tar</filename></userinput>, which will produce a file names <filename>clickme-0.1.tar.gz</filename> or <filename>clickme-0.1.tar.bz2</filename>, depending on what you chose. This file is ready to be uploaded to your favorite repositiry (if you don't have a favorite, see <xref linkend="distributing_KDE-Look-KDE-Apps" /> for good ideas).
+  </para>
+    <sect3>
+     <title>
+RPM
+    </title>
+    <para>
+Because of <application>KAppTemplate</application>, we also get another option for distribution, namely RPM packages. <application>KAppTemplate</application> created a file not normally used by the <application>GNU AutoConf</application> packages, called <filename>clickme.spec</filename>. This file is a set of instructions to the <command>rpmbuild</command> script for how to create an RPM and a source RPM for the program. This said, we do have to change a few lines. The third line is a summary, and you will probably want to change the text here to something more sane than &ldquo;ClickMe -- Some description&rdquo;, such as &ldquo;ClickMe! -- Click me and get a message! A Slicker Plugin&rdquo;. Replace &ldquo;Utilities&rdquo; in the &ldquo;Group:&rdquo; line with &ldquo;Slicker/GeneralPurpose&rdquo;, to show that this is a general purpose Slicker applet. The &ldquo;Source:&rdquo; line should be changed as well. It may be as simple as adding a &ldquo;slickerapplets/&rdquo; after &ldquo;&lsqb;...&rsqb;apps/utils/&rdquo; if it becomes included in the official Slicker applet package, or you may have to replace the line completely with another position, if you place it somewhere else (such as your own homepage). The line under &ldquo;&percnt;description&rdquo; is a long description, and this should be replaced with a longer description of what your applet does. The description for ClickMe! would be basically what the section <xref linkend="introduction_before-we-begin" /> says.
+    </para>
+    <note>
+<para>You may have to pay special attention to the &ldquo;Prefix:&rdquo; line, because if you have your KDE in a different location than the standard for your distribution's norm, you will almost certainly have to change this, or the final package will not work on other machines, unless they have the same installation prefix.</para>
+    </note>
+    <para>
+Now that you have changed your <literal role="extension">.spec</literal> file, you are ready to build the rpm files. First of all, build a tarball as described above, and then run the following command on that file (the following command expects you to use a bzip2 file, if you used gzip, simply replace bz2 with gz).
+    </para>
+    <screen>
+<userinput><command>rpmbuild</command> <option>-ta</option> <filename>./clickme-0.1.tar.bz2</filename></userinput>
+    </screen>
+    <para>
+The files <filename>clickme-0.1.rpm</filename> and <filename>clickme-0.1.src.rpm</filename> should now be in the places as described in the <application>rpmbuild</application> output (somewhere close to the end of the output there should be a description of where the output files are put).
+    </para>
+
+    </sect3>
+
+
+   </sect2>
+
+   <sect2 id="distributing_KDE-Look-KDE-Apps">
+    <title>
+KDE-Look.org, KDE-Apps.org and Other Repositories
+   </title>
+   <para>
+Now that you've got some source packages, you are ready to publish your fine new plugin. There are a lot of places where you can do this, and since this is a KDE program (or, rather, related to one such), the KDE-Look.org and KDE-Apps.org sites would be very good places to start. Depending on, of course, what your applet does, it can be posted in either. There are also other repositories, and one such is freshmeat.net, probably the single largest list of open source software in the world.
+   </para>
+   <para>
+The submission guidelines are different on all the different repositories, but a good idea for all submissions to any repository is that you should always have a screenshot. Sad, but true, most users (including yours truly) like to see what they download before doing so, wether or not there is actually much to see. Of course, with Slicker, there is a lot to see, as it is most often used with a mouse, and thus very visual. So, take a screenshot of your applet in two or three different configurations. There are a whole array of different ways to actually take the screenshot (such as &ksnapshot;, KDE's own screenshot program), but for a unified look, please take care to always use the Plastik window decoration and ditto widget set, and the Crystal SVG icon set when taking Slicker screenshots. The author might use something else day to day, but it always looks good to the user if applets and the like all have the same look when they compare them. Please respect this, as it seems a lot of people on the two main KDE download repositories do not, and we would very much like to keep this not so.
+   </para>
+   <para>
+You will also want to make sure that your <filename>README</filename>, <filename>AUTHOR</filename> and <filename>ChangeLog</filename> are all kept in an updated state, both for the users, but also to help you in your further development. This does not just go for Slicker applets, but for all development.
+   </para>
+   <note>
+<para>Please note that is would be a very bad idea for your reputation to publish your Hello World applet on any repository other than your own homepage, as you can expect just about every developer has created something similar. Please wait until you have something with actual &ldquo;content&rdquo; to show. This should be common sense, but it seems that some people have to be told this, so now you can't say you were not warned. Thank you :)</para>
+   </note>
+
+   </sect2>
+
+
+  </sect1>
+
+  <sect1 id="distribution_SPR">
+   <title>
+The Slicker Plugin Repository
+  </title>
+  <important>
+   <para>It is vitally important that you understand that til particular section reffers to a technology not yet implemented, and one that will stay that way for some considerable amount of time. We will thus not respond pleasantly to anyone spamming us or asking about it in channel. Please wait, it will be implemented when it's implemented.</para>
+  </important>
+  <para>
+The final place you may publish your applet, and we strongly encourage this, is the Slicker Plugin Repository, from where users can easily download and install new applets, and keep their existing ones up to date. In your Slicker configuration dialog is a spot called Download Plugins. When the user clicks on this, he is presented with a dialog, containing a dynamically updated, tree-sorted list of plugins, that he can then select and download by the click of a button. Both users and developers alike benefit from this. Users have an easy way of getting new software, and developers have an equally easy way of advertising their applet to the user.
+  </para>
+  <para>
+For publishing on the Slicker Plugin Repository, we use a simple download and compile method. Now, to many this might seem a bit harsh, as the reasoning of course goes that to make it easy for the user, he should not have to compile anything. However, the user is not actually doing this, because the SPR downloads <literal role="extension">tar.gz</literal> or <literal role="extension">tar.bz2</literal> source packages, and compiles them for the user, using the system's defaults. The only thing the user has to worry about is the question of wether to install it only for himself, or to do so system-wide (which of course requires him to enter the root password). 
+  </para>
+  <para>
+To create a package compatible with the SPR, please fill in the .<literal role="extension">.lsm</literal> file created alongside all the other sources files when you ran <application>KAppTemplate</application>, as this is where SPR gets it's information from. Please note than the <application>KAppTemplate</application> at time of writing makes a slight error in that it says that only KDE 2.x is required. This is not true, because we now require KDE 3.2 or later. Other than that, simply fill in the fiels with the appropriate values, make your <literal role="extension">tar.gz</literal>/<literal role="extension">tar.bz2</literal> file, upload it to the position you wrote on the Primary-site line (and alternatively also to the Alternate-site). Now upload your lsm file to the SPR site at <ulink url="http://slicker.sourceforge.net/spr/">http://slicker.sourceforge.net/spr/</ulink>, where you can easily manage all your submissions through a simple web-interface, or through the SPR Developer's Plugin, which will also be available for download.
+  </para>
+
+  </sect1>
+
+
+ </chapter>
+
+ <chapter id="praeludium">
+  <title>
+Praeludium
+ </title>
+ <para>
+We hope you have enjoyed this little tutorial, and that you have found it simple to follow. If against all expectation you did not, please do not hesitate to write any comments (this of course also goes for you who found mistakes or found the tutorial lacking in some way). Please write to either the original author (his e-mail is on the front page), or feel free to join us in the &num;slicker IRC channel on irc.freenode.net where most times people are ready to accept comments and the like.
+ </para>
+ <para>
+- On Behalf of the Slicker Development Team
+ </para>
+ <para>
+- Dan Leinir Turthra Jensen
+ </para>
+
+ </chapter>
+
+
+
+
+</book>

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=ClockCard
+Comment=A simple Clock for CardDesk
+Author=Kurre Ståhlberg
+Version=0.1
+Provides=AppletOnly
+X-KDE-Library=libclockcardapplet
+X-KDE-UniquePlugin=false

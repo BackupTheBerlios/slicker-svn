@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=InformationcenterApplet
+Comment=Displays information of your system
+Author=Sven Leiber
+Provides=AppletOnly
+Version=0.1 alpha
+X-KDE-Library=libinformationcenterapplet
+X-KDE-UniquePlugin=false

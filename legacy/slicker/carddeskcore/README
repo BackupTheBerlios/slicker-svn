@@ -1,0 +1,20 @@
+Changes to the original carddesk code:
+
+CardElements.cpp:
+   - Call showContextMenu() in mousePressEvent() instead of
+     mouseReleaseEvent()
+
+- Cardelements.cpp in Separator::mouseReleaseEvent(QMouseEvent *): 
+
+	void Separator::mouseReleaseEvent(QMouseEvent *)
+	{
+		if (_gripperActive) 
+		{
+			_dragging = false;
+			if (_newContentsHeight > -1)
+			{
+				card()->getContents()->setPreferredHeight(_newContentsHeight);
+				card()->elementSizeChanged(true);
+			}
+		}
+	} 

@@ -1,0 +1,270 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>PreferencesWidget</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>PreferencesWidget</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>432</width>
+            <height>412</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Preferences</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>appearBox</cstring>
+            </property>
+            <property name="title">
+                <string>Appearance</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget" row="3" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>layout14</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>transMinLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>0%</string>
+                            </property>
+                        </widget>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>transMaxLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>100%</string>
+                            </property>
+                            <property name="alignment">
+                                <set>AlignVCenter|AlignRight</set>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="KColorButton" row="1" column="0">
+                    <property name="name">
+                        <cstring>fadeColor</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Background Color</string>
+                    </property>
+                    <property name="color">
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                    </property>
+                </widget>
+                <widget class="KColorButton" row="0" column="0">
+                    <property name="name">
+                        <cstring>textColor</cstring>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="color">
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="1">
+                    <property name="name">
+                        <cstring>textColorLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Taskbar text</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="1" column="1">
+                    <property name="name">
+                        <cstring>tintColorLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Taskbar tint</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="2" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>layout15</cstring>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>transFactorLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Taskbar Opacity</string>
+                            </property>
+                        </widget>
+                        <widget class="QSlider">
+                            <property name="name">
+                                <cstring>transFactorSlider</cstring>
+                            </property>
+                            <property name="maxValue">
+                                <number>10</number>
+                            </property>
+                            <property name="pageStep">
+                                <number>3</number>
+                            </property>
+                            <property name="value">
+                                <number>3</number>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="tickmarks">
+                                <enum>Both</enum>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Taskbar transulency level</string>
+                            </property>
+                        </widget>
+                    </vbox>
+                </widget>
+                <spacer row="1" column="2">
+                    <property name="name">
+                        <cstring>spacer</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>320</width>
+                            <height>21</height>
+                        </size>
+                    </property>
+                </spacer>
+            </grid>
+        </widget>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>behaveBox</cstring>
+            </property>
+            <property name="title">
+                <string>Behavior</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QCheckBox" row="0" column="0">
+                    <property name="name">
+                        <cstring>sortTasks</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Sort Tasks by Virtual Desktop
+With this enabled, only tasks on the current virtual 
+desktop will be shown on the taskbar.</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="5" column="0">
+                    <property name="name">
+                        <cstring>layout9</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>groupTasksLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Group Tasks:</string>
+                            </property>
+                        </widget>
+                        <widget class="QComboBox">
+                            <item>
+                                <property name="text">
+                                    <string>Always</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>When taskbar is full</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>Never</string>
+                                </property>
+                            </item>
+                            <property name="name">
+                                <cstring>groupTasks</cstring>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QCheckBox" row="3" column="0">
+                    <property name="name">
+                        <cstring>rightCorner</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Always show both drag edges</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="4" column="0">
+                    <property name="name">
+                        <cstring>windowManagerCheck</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Do not allow other windows to overlap taskbar</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="2" column="0">
+                    <property name="name">
+                        <cstring>showAppIcons</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Show application icons</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="1" column="0">
+                    <property name="name">
+                        <cstring>onlyIconified</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Only Show Iconified Tasks
+With this enabled, only tasks that are iconified 
+(a.k.a. 'minimized') will be shown on the Taskbar.</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+    </vbox>
+</widget>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+</includehints>
+</UI>

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=LauncherCardApplet
+Comment=Launch applet
+Author=Mark Westcott
+Version=0.1
+Provides=AppletOnly
+X-KDE-Library=liblaunchercardapplet
+X-KDE-UniquePlugin=false

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=KonsoleApplet
+Comment=A Konsole Applet
+Author=Fabian Uffer
+Provides=AppletOnly
+Version=0.1 alpha
+X-KDE-Library=libkonsoleapplet
+X-KDE-UniquePlugin=false

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=KMenuApplet
+Comment=KMenu for CardDesk
+Author=Kurre Stahlberg
+Version=0.1
+Provides=AppletOnly
+X-KDE-Library=libkmenuapplet
+X-KDE-UniquePlugin=true

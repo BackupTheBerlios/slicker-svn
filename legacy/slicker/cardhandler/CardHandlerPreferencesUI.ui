@@ -1,0 +1,185 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>CardHandlerPreferencesUI</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>CardHandlerPreferencesUI</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>541</width>
+            <height>390</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Form1</string>
+    </property>
+    <widget class="KListBox">
+        <property name="name">
+            <cstring>mAvailableListBox</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>20</y>
+                <width>210</width>
+                <height>230</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>mCreateButton</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>230</x>
+                <y>20</y>
+                <width>83</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Create</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>mRemoveButton</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>230</x>
+                <y>50</y>
+                <width>83</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Remove</string>
+        </property>
+    </widget>
+    <widget class="KListBox">
+        <property name="name">
+            <cstring>mActiveListBox</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>320</x>
+                <y>20</y>
+                <width>210</width>
+                <height>230</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>320</x>
+                <y>0</y>
+                <width>77</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Active Cards</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>0</y>
+                <width>102</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Available Plugins</string>
+        </property>
+    </widget>
+    <widget class="QButtonGroup">
+        <property name="name">
+            <cstring>buttonGroup1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>260</y>
+                <width>230</width>
+                <height>58</height>
+            </rect>
+        </property>
+        <property name="title">
+            <string>Card settings</string>
+        </property>
+        <hbox>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <widget class="QLabel">
+                <property name="name">
+                    <cstring>textLabel1_2</cstring>
+                </property>
+                <property name="text">
+                    <string>Card space:</string>
+                </property>
+            </widget>
+            <widget class="KIntNumInput">
+                <property name="name">
+                    <cstring>cardspace</cstring>
+                </property>
+                <property name="minValue">
+                    <number>0</number>
+                </property>
+                <property name="maxValue">
+                    <number>10</number>
+                </property>
+            </widget>
+        </hbox>
+    </widget>
+    <widget class="QGroupBox">
+        <property name="name">
+            <cstring>groupBox1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>330</y>
+                <width>230</width>
+                <height>56</height>
+            </rect>
+        </property>
+        <property name="title">
+            <string>Debug settings</string>
+        </property>
+        <hbox>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <widget class="QCheckBox">
+                <property name="name">
+                    <cstring>mEnableTestGui</cstring>
+                </property>
+                <property name="text">
+                    <string>Enable TestGui</string>
+                </property>
+            </widget>
+        </hbox>
+    </widget>
+</widget>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>klistbox.h</includehint>
+    <includehint>klistbox.h</includehint>
+    <includehint>knuminput.h</includehint>
+    <includehint>knuminput.h</includehint>
+</includehints>
+</UI>

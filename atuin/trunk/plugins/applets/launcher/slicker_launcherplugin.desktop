@@ -1,0 +1,16 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=Slicker/Plugin
+X-KDE-Library=slicker_launcherplugin
+X-KDE-PluginInfo-Author=Markus Breitenberger
+X-KDE-PluginInfo-Email=bre@slicker.org
+X-KDE-PluginInfo-Name=slicker_launcherplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=N/A
+X-KDE-PluginInfo-Category=GPP
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=false
+Name=LauncherPlugin
+Comment=Launch applications from Slicker

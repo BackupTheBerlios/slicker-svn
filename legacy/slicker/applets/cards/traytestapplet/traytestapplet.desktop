@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=TrayTestApplet
+Comment=Testing the Tray CardElement
+Author=Shamyl Zakariya
+Provides=AppletOnly
+Version=0.1 alpha
+X-KDE-Library=libtraytestapplet
+X-KDE-UniquePlugin=false

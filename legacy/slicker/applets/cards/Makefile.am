@@ -1,0 +1,1 @@
+SUBDIRS = testapplet clockcard kmenuapplet konsoleapplet launcherapplet informationcenter systemtray printerjobsapplet xembedapplet

@@ -1,0 +1,39 @@
+1) Header files
+
+In an attempt to our code look as uniform as possible, the Slicker
+developers are going to try to use a unform header on all of its
+files. It should look like the following.
+
+/***************************************************************************
+	    	    Copyright (C) 2003 Your Name Here
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+2) Debug output
+
+Having got annoyed with all the streams of debug output I get when running 
+slicker, I've split things up into debug areas.
+
+I recommend you add this to $KDEDIR/share/config/kdebug.areas:
+
+# slicker
+155000       slicker (core)
+155001       slicker (taskbar)
+155002       slicker (slider)
+155003       slicker (carddeskcore)
+155004       slicker (cardhandler)
+155005       slicker (applets)
+155006       slicker (share)
+
+When using a kdDebug() be sure to specify which area of debug output it belongs
+to, eg kdDebug(155005) if you are writing an applet
+
+Thanks - The Slicker Development Team

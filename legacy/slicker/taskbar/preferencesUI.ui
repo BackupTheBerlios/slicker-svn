@@ -1,0 +1,330 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>PreferencesWidget</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>PreferencesWidget</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>495</width>
+            <height>412</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Preferences</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QGroupBox" row="0" column="0">
+            <property name="name">
+                <cstring>behaveBox</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>GroupBoxPanel</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
+            </property>
+            <property name="title">
+                <string>Behaviour</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget" row="5" column="0">
+                    <property name="name">
+                        <cstring>layout13</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>groupTasksLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Group Tasks:</string>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Group similar applications in the taskbar</string>
+                            </property>
+                        </widget>
+                        <widget class="QComboBox">
+                            <item>
+                                <property name="text">
+                                    <string>When taskbar is full</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>Always</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>Never</string>
+                                </property>
+                            </item>
+                            <property name="name">
+                                <cstring>groupTasks</cstring>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Group similar applications in the taskbar</string>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QCheckBox" row="4" column="0">
+                    <property name="name">
+                        <cstring>windowManagerCheck</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Do not allow other windows to overlap taskbar</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Stops other windows overlapping the taskbar</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="2" column="0">
+                    <property name="name">
+                        <cstring>showAppIcons</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Show application icons</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Show the applications icon in the taskbar</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="1" column="0">
+                    <property name="name">
+                        <cstring>onlyIconified</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Only Show Iconified Tasks</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>With this enabled, only tasks that are iconified  (a.k.a. 'minimized') will be shown on the Taskbar</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="0" column="0">
+                    <property name="name">
+                        <cstring>sortTasks</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Show windows from all desktops</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>With this enabled, only tasks on the current virtual  desktop will be shown on the taskbar</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="3" column="0">
+                    <property name="name">
+                        <cstring>rightCorner</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Always show both drag edges</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Show both drag edges of the taskbar</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QGroupBox" row="1" column="0">
+            <property name="name">
+                <cstring>appearBox</cstring>
+            </property>
+            <property name="title">
+                <string>Transparency</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer row="0" column="3">
+                    <property name="name">
+                        <cstring>spacer5</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>16</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="KColorButton" row="1" column="0">
+                    <property name="name">
+                        <cstring>fadeColor</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Background Color</string>
+                    </property>
+                    <property name="color">
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Adjust the fade colour of taskbar</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="1" column="1">
+                    <property name="name">
+                        <cstring>tintColorLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Fade to Colour</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Adjust the fade colour of taskbar</string>
+                    </property>
+                </widget>
+                <widget class="KColorButton" row="0" column="0">
+                    <property name="name">
+                        <cstring>textColor</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Taskbar Text</string>
+                    </property>
+                    <property name="color">
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Adjust the colour of the taskbar's Text</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="1">
+                    <property name="name">
+                        <cstring>textColorLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Taskbar text</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Adjust the colour of the taskbar's Text</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget" row="2" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>layout4</cstring>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>transFactorLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Taskbar Opacity</string>
+                            </property>
+                        </widget>
+                        <widget class="QSlider">
+                            <property name="name">
+                                <cstring>transFactorSlider</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>true</bool>
+                            </property>
+                            <property name="maxValue">
+                                <number>10</number>
+                            </property>
+                            <property name="pageStep">
+                                <number>3</number>
+                            </property>
+                            <property name="value">
+                                <number>3</number>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="tickmarks">
+                                <enum>NoMarks</enum>
+                            </property>
+                            <property name="tickInterval">
+                                <number>0</number>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>Adjust the opacity of the taskbar</string>
+                            </property>
+                        </widget>
+                    </vbox>
+                </widget>
+                <widget class="QLayoutWidget" row="3" column="0" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>layout14</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>transMinLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>0%</string>
+                            </property>
+                        </widget>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>transMaxLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>100%</string>
+                            </property>
+                            <property name="alignment">
+                                <set>AlignVCenter|AlignRight</set>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+                <widget class="QLabel" row="0" column="2" rowspan="4" colspan="1">
+                    <property name="name">
+                        <cstring>pixmapLabel1</cstring>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>image0</pixmap>
+                    </property>
+                    <property name="scaledContents">
+                        <bool>true</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>The Taskbar</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+    </grid>
+</widget>
+<images>
+    <image name="image0">
+        <data format="XPM.GZ" length="56420">789cd59d5973e33612c7dff3295ce15b6a0bb1c7f6d8aead7d182793649dfb56b2b50f962d0d254b9ad39964b6f6bb2f89b3d1e8061a24e54d0685825a94ed31c01fff7d80f4871f1cccbef9f2e0830fdf7bfde6facdeae6e0a6bd7e75f0c1edfd76fbc7bffefd8fffbcf7fed1c5c5c1d1f1d9c1f9d1c1a3f7fff6defbeafee0e6a039d4ffb47d6aece39beb136d9f78fb46db67c63e39b4c797de36c7ff70f6dc1c6fad7d628f2f9c6d8fbfb0f6b93dbe76b639dedc78fb561fdf5afbc67efdccdbe6f895b14fedcf6f1a6febe3cd9db36f4eb56dff3fa7a7f6f8d6d9f6f8ceda17f6f873679be3ea276d9f1f1d1e99f9fbd6dbe7da7e6c6c373fcdadb3edffffc2da6e7e9e39db1e5f59dbcdc7336f9bdff7ceda6e3e36de36c7cf8dede643edbc6d7e9f6b67dbdfe7d2da6e3ee6ceb6f3b1b4b6fdfd9bb5b7cde7edcf3fbdb5dfefe3deee67c7cec717d63eb1f691b1ddffbf51c6f63fafb5b6fb792b6f9bdfef9fda3e7f74f8e842db4f9d7d7ca4ed6fac7d62edaf7abbfbb4b3df1afbf8f0c4d84fb47de1eddfbd7daded77d63eb1f647bd7d7c7472786aec9fad7df2d8f0f583b62fbcfd9db14f0fcf8eb5fd656f9f1c79fb536b9f5afb176fcfb5fdc8d88fddfcbed2f6f5e3a37373fc736b9f5afbd8d867ee7cfdadb74f1ff9e3af9d7d61ce8f37dabe3e3bb57cffe86d737e7e6fecf3233bffbff6f6e347fef827c63e3fb2e7db67d63eb5f6d7de365f7f68ed5bfbfd5e6afbda1fd7bc9d1d5fb89f776ded536b37cebe35bfdf8db52f8cfdadfe7dcee6fef8dcdaf6b8d23c2ef53ff379d574ed1a8d8d70c45f971fe7857e03c65b64c391eb0bb554cfbace8da6b79ddd8271a1567e347dedc7b61bd7f6fd35dbefbabee95e6df4b8b5fdcef60db0b7dada25dd36b3e2fd7c81febca2e3af9db2dfdab189c61bbb2e745f763348f745d25bb2afd96ed6c4acd10bfd2a8c664de2bed5eb7317ad51e8bbeec82e7addafcb9d616eff7c70e774f439ccc16d251f7d2ff31118817caced18f3b1006cf08cc47cacec5a4046ee001f7760fea766649f7c347645623e9a2c1f72465ac0c85acc885bb7940fccc856af8d5bab35580fcc096444af13a1239e03f552bdd2e3ebee15e6e38d7a33920f5a574a3a52ea341f2dc3470bb868bd86a47ca44c403bccbde324d5921dd011968f2223afd4bd1eefd56f091f6fd5ef93f2408db18ee4d9a019f9a3eb4b3b621d69c58c2cc0b8467ca43ab205afa18edc313a12c6b0229c8efca6ee391d51efd413091f59ffaa21b8c8e988a44bfd2cd75760be533f2bef5f611d09d728cadf72ac6cb23a729930f25147c4bdfa585faf1c236fbb6bd4737feca9fac433f2b21b3f055ff7547da6bfcfeffa6bff39828f54476a19817c2c191d59171959a091e6635de023d511c785ebfd9a5c3946c0f9fca69bc75e1f3e575fa85e3feef5917bbd3e5f76eff59f7ca2beb28cbcec56ee9dfebafed8d7ddf8a41b7bfb5e7dd3cde36b82879c6ee47444da6bf878e6f52366a4860fa7238e0bdad785fa91f1b30846baeb5477ce3b3f2ad6918fbb79ef35e4a51edf763c7cebb5e463f59d1e5ff62bda8d660dc7f011eb8839ffef938619f91e30c2f1c1c51f2923980f9e13c708ed67713ed61de0e38ed19146fda07fd327ea471574a49b5f7ddeff6674e4db7ecedfe9cf7d64bf0eced2e7da867c48e2f39c8e841eaf47fa3d73f17ae002c6eb6bc5f959323e621dd9126b10e2f6221fa48e181feba93ed703239f77a339ef7bfb8d65e495fe544330216344a62331073c1f7d97f9595246684ea07e6c2d1f4e3f521dd9b27e561c8744de2fd091578e033da7b18e3cedf8e9adaff53a743a0274e3a9d593a6d38faf1d4fa2eb7ebd8e707c1846781d89e310373a3e521d8939c0f60acdfdc6cf3dad23204fc2fb590923cfad8ebceaf4e1278575a49fe71f343f6f55f0b57e523f77637fec677f6c4a1da1fc299a0f2a5e5f24239dcb2ae5b3d67eed827ee0b5819c947564d68d33a02371840875e4c76ea6df75beec4b7d757aa2df7f67e3f337ddfbefb4ae5fab5fecf85afb5cfd9a3ce98e7d6acfef27ead7917cd03a52eb67a5f34ee77d619e571e83e0f8035f9b647ed626f04130f27079ac121f4647643148aa21cb840f9e8d3c235047683ee2787d1bf1c1ebc8c632126908d291d179deeaf85aa223b2ef73a88e08fdc8f1e1ea210bcf88d3931aff0ae6b3783ef23a02f8f08c3c54ae57c205cc63c919f95ea5f92cac1f254eca3a92e67b531dd9aa345ee7fa06e6b3908e4c530fb9516c1d64cf3ac2c521bc7e382e427c02eb85793686e8081d8fec4630f290fae1e27429237c9cde32d7af7a3e8c8e70eb44e7b3728c6cb4bfb54b9b5447fa387d923aba940f29238f32713aae83a4757518ab97f9c075a9f2dc87387093f0311bc8c843fb57f0dc2f3382fd2b18a74bfdac7ccd10eb481a37c2bcef26592b6a9d66e09a7555a92375fb4c1a7fee96eb83253eca8cf0f1794e4756563756c00ef5903a46621de139095cc0d771933132251f724e4a8c1c13b139570f191ea7a73a82e310d8ca3a3203e3cc5eb3123fcb33b25427443fb5bf99bc3dce8c744e231dcbe7bd7ce4e210a71b30ef2bf1b386e9c84c15f3bdf0b5d941ace7ff44b7302eabfa999dfdd2885b7c9cdb4722e958474a3e56990fc809af215b155fbff27c6c2d1fd8cfba428cf4738a1999960f2ef787fb547c50f92b1887ac223e643a92ee91831a3223f8a0f62f32fa4132f2ffe5632c23745d7d2c230bcf038e3feafcac1c1fe7451d79ace819fcebf0e1d662a1681d817511b98e0cf1b3621d495b89913a36201fce0f287141b7a9b848ebea63e374d7c6fb59311fa49f45e8c870ff8ae3654affaafffc85e07374bd30e848884370fd90ae1bc27d0df4dc538ccc6c2ff3b10b63a30023c3f870af87f3318691fdf2d1462c708c506b44e94860e40a317205d7c8dcefa5e075a79e0f6e94f051a31ff57c601de1fd2c4e3be01e079e0f7a9ff5c63621238d423a52df292eea3919e35fc1b58df9a86164c1d8f49e07cc07ed67e57464ab281db9048cec830f699c3e3e2ee7d620e5838b476a7d2c594d0aeb88201619a5237f2e3ea08f506284d68fb5880fcacfcaf30173bd5047d86b18d091d46f1ac389848fb179acd2fca7fb17c3fedef43ec39ababaac2ec2e9086663bc8e8ce3620a3ed23a7a798d6af258d8f7adf7b3e07a413f8bcdf9221d49cff3a17c48fdaba9f2bcfcf529d591348f95f7b3282d91d5a41c1f7cbc4e68c8081d19cfc71046a8f85cca878c91172a8ed3f37cd03a42e93bacabd38c5caabc8e709c4c157f4ce567f1fb1617c9c8f1017504ae015e0bfa9a44dd4f15f259d57e56b58ee4f4a3de7f9e223ea7ee2f1c9ee77da1709c0e59806bd6afc34cc5f10877fd0af107cdc825c148eebc9772e2e6f8a1f44372ff94d39134cf4bdf2782af55545e2be523d6ef100fc2fbd9d8eb94e162b08ee4e20f392363fc2b8a93218c2c6c4b19a11b64c4f1b15138b7b2edde9730725564a4a40f53eac87ef8c08c50fac1e9485aa3a57c5f9e0f2a5fb2515caee4e17444e66f8d8941cafa21d790f87ddabfa21abe4fc4bcb7b5bc505ce0eb97a98f5c368d5907370ed0911c1fae3f9c7f456b0715a7e7f95890fa518ad773b5c3543f9c9fa5c7e69ae4e3b29957e948c9bf7a983cd614fa51da6f4269ba6dcd0dd00f3ce6d706ea08b866a57c88e391debe281c97e8c8f475f4521eabc447cc089733e1f523f859f41a403f6ba3780db914eac878dd988a0fd7a7cd6351f5f4a17c508ccc54ec6375bde382d491c04b51470a63736bed672acfc7bef35879fdc8efcbe2f8c03a92e323cd276ec0e81ba3233ba18ee4f970fecf43f081af8925fd283392afa7634e6af9d8447ca4fbb486eac843d7d1cbbac1ad8199573a8f352c4e5fa99c7f85f731ce10239b1c27849f25d191a1fb14a7e52397e76df7c007f681711e8bf2aff8381df3d1bfbe8ad7c470e2af597342475c2bf14169edfee374ba0ee2e617ae454e47a8f8af3edfcbf1813929c5eb9e8f7e3d9a39c988948ffdc6e943e28f3a3fcbb5723c42eb08cd87f3b336d8cf72f9ac583f201f898e48f970e3c583f291ae81d30bbcbfa7e46771734fe9882c0e11f9598891483ffad70c23723eda022f53f857b575907a3ee806ebb8aefe917222e1631bc5213d27849f65d682d1915a3e4a31dc74713a3dffcebf727a228943647cac0a8c48f8f09ce83824d6904b97cfd25d19668878a44e3f5a644fc548998fa1792c3e4ec77e16ccf3ce549af7e5f6cd8567f8a67cec683e20278374e402748e8fe9e210499e97daef4e7192d642b8f83dcf47588fb41e05bb8fd3f5bc2346121dd19c448cd4f95553f381b9a0fdab616c98cfbc50dc7e13aa61ddc0cfcfda921a1274245eaf2bc30ac863ed523e06eb48898f7dfa5761fee1f567c1e8465a07b9cbe807d474091f3423bc9fc568b9ed8691a02375fa1118a1db54f1479ac71aea5fe5ebe8b851fe55fc1c467efff52e592bc009d0915d1aaf473a42d53f72fa01fdad7de907a71b793ef87aba9b6b8e8f721e8be383d291626d9d64641e3152af23ed847108d69169f9803a226b35f542ba2e823ad491744dd8bc96443fa08e604ef6177fc4795dba3e28db6f92d31159be97cb65d5e4b3e238c473a2576458fe0a9fdf63f8c03a325dfc01fd0039237c9c9ee723cdfbc27c6fa423949f95c423353a023999b67e5e8ecf713e5de26771f5748e0fc9fe45bebbb62118b944d7accb90f7f5792d78e6cbf3bb63f3569c7f55e263ad86f031858e1806b87cd62cd2117cbf61315e8f7404fa4f12fdc03ab2eff803c7e7357c70f39d8b43f87d5939fd803a52dac788b880bc448cd4d53ff6c147ea5f8df5b1e0fa8dd5119e8f4dc247aa2328ef4bf1913052e367ed4347247c401d19c247695f6f79df49d8035fc3c7ce6b886b34234e4782bff4703a528e3fa6e2c33598d7a2ebeb6ecd5cbe57520fc9ef61b43aeff5e3128eac8eb8f35ccac5fe74a4cc07bdcf84de6f8275c3cd357e5fce47cecfda001d8ff767817d5a36df1b74c4d745908eb4422e2846166a1823e5f8431e83bcc8ea87e3016a08aff954dd70589c1ef8887484d60f77ddf23ad22a3efee0e39156f77dd53f609cde37f89cf7988f36e183bbdf00eb48998fb85ec8ef5f649be764eee373a823369f657951493cb21fdfca71e41a9fb782efb72ae664a1729ca4797aa81de5ba08acabbb71a6ca71c886e483f4b39a79af274dd38d0b33625d078c487a8b46c3476b59e1e36fd729bf4cea5fe5fdacb44e08eb216e8ea97dbe810faaae1eeb473e16c9375037043d70e3f464f9008ce05c3d157fc4e3987d58aec3568e41f0dfa10a3a52e22357d3053a126a868113ac23cda29a919893c0c733cb08a70fa1633ee4fe15ad1ff47e458e9361795e491eab5a47d2ba48dfbb061999224f55e263a14a3a320d1fa9aee739c17c847844ca07c389e383afab677504eb043f623e380e5ac4487a1cfa53f8ef1f94e310ba0e42e905aeafd7e479e97d59e57a481a8f5ca2f907dcf47c201d998a07898ec4fe94ace7b808fbb179bfb746479c8f95d3912a3eb4762cb8ba61d6d7927042f191c625141feeefa463ddc063ba0f8b7f8eb5ecbe29cc87ebe3e3745647223e765ab7311f56473a3e7a2d59167444c20d3eff73c717c4e76bd848e372cc886c1f1668fafe42b74669be37ef67d5f06119c1792c42ef6b7524a71feefc4fe310d769bf2acf47883f5ac5fb57f433ca4a9c4cc307dc47caf0a1473adfebe3900974848b2772c7634ec6eb475a47afe683b90f773afd28ea88894306ea488e8f72e7f9e0e2738a0bfebec2d27ec52db83649f9c8ef7f27e3f5840fec5be1fd279a11818e8ce1640a3ecaf9ddc047f83be9b2f8dcedc1ceedc7e23889f920d62bc41fd1887424d6f9c049858e8ce3a3d6bf4ae30fc80bed5fc1fa07c549d8432d8bd3f93c6f31af45c57fd15a28b7cfd7e9c71e7544c2c974fab1b67cb8bd26794eb6a1679fe380f9089c507cc0f14ab93a48b2ff24d591e89a55a7235cfc318c11091f7c1e8bbe2f1ddf8353d2119a13291f591dc17b1741de17ec8157f0fec35447cc797f163140d50987f150c7469d7fc5d7cba9f8046a48aa233417553a42fa58beb33ab24c74a4cdc6e7f57d4974997f45fffd03591dbd34623ee8bf4325ad87a07530fa0dfd2c2646c7f5753a1e995a2f784ea6e243ca09a9218a8e43782e66641c22caf74246e8fa7ac707d6112a3fe5f463182314279238a415f241e74b2471ba9c0f491c12f141c723be768b3921f84874e4afc6475d438cf835e2f8c023ef5f55e9085917a174047282fdab2919a1f808b9a97cfd5c725f3ac70be423f5b3523eaae290980fae1605f423cefb52f1c8f47cb47f2a3eb09f35033a42d54164fe55265e4f75c4d4d799ba48bf1e791d9926de083dfdbb8438ee90d53fe4cf6db823ec1a3ef2cf0312eb48bf0e1123f07e9187d211b70ef1fb63d858a8917c681ec2fe2b697c2ee1c3de5fc868c80ef20175247a3df73ad28da48e8cc95be1317013d7d1570ac6e5f9f87c05f890fa55766c9e011ecc3301247c0ccf67391db9565843081de96b877a3de67bd2117cfee7f918167794ea84c9715f27ace143e65f6db36cf8fd27421d599ab884d591a19de204ea44b0393e86df679be36393f0c1c72141473017443e2b8ed395db03b46318f13a62f998433e323a32463f6afb947139f6ad662aa71f300ea1eb86453e18ff2aae8b103a12c5ec604d987884e32437af1c1f300ec723cfc5f0fc158c03e36b93ac5eb8617990f121d3914b4b87d391a5bd6e2dc53a42ef2391d703257ca47f0fc4d53ceaeeb1a5f9d846fb4ec6d741647c303a12f111f9bf621de19e6f1573c07392f291eac8747c400ec233014afb4d28fde03889f8f0f63ce183d111bd0e3bef67b59e9394917deac570fde0fc2bd6ef8af699a45cd0f785cc4017c721141f711c12ba02fb4e743df1d2e77d7db777864afd2ba96ee0bc5588cb17557c50fbdc33a39e7fbe7e2ed10f4a4732713aa11f899fe5f223cd35e2c5ad8169ade30530521f774ca721794eb846fa5f988fa40e12fcae11795e3efe80fa91f678df0960631931228d43b8bc15cd49cc433d27653eb0bec8f9d8129ce4f2589b121f800b8a0f22eee8c636a887d5933a1d994a3f3846c27bd47db6a216e906c549dcf9787d689e37cb47c8efa68c8cd011897eacfc98ef13e987e0b97143f258a47f158f523eecb8c49c2046b0af559fb7caf5a1f95e69fe2aaf1f33c2cf92e8c7503ea2b89cd38f321f918e8cc95b51792c4e37783e5236a6d9e75ed20fe1be136abf89cf8da0f926f8808cb4091fa059461e220ea98b3f06e907d6916c1cb25195fe955f9799e322ae0f727c98fbd73d17242361bd8a8cd4c51fa11e48e9489acf95f381fdaa3aff2acf49960dc6bf4ae3f10c1f4e47583f2b65643afd9032827928f1518ccf231ed6280e818cd0fa21e483d68dbc7ea0eb1aa31f2246e47cd4c61f341395fa81ea1fb95eeb5f95f820d828f0310773cff221d491210cc86372691d44149f634e80bdcdc421d5f95d828f05af1f765c4ec4089da7a2f356f93c55a887c0baf950ff6a25e663a87e64f697246c2c8a7c443a42b4951b012363f6b20f6382ea83fd2bf27e10bc2ed5fb79293ed40ef3a1f4fd5314274e47dc758b6564d9accd6819a1f7b2e7b908e3903cd508fd10c61f03f5838acb6dad89ac0b86fc7a127fc0e6e6becde8c80ae948dac3df239a868d927f05fda92c2f241fe9737fca79acfae73648fcacbb888b34cf3b277aacec748d307eee5b3c1a3ec23c96f9a018a15a26fee8e7bdc2bfcad5410aba81f7f1fa7a139d0fa1e2f334dfcbb5b9e763d37796116a7dc63052c3879c0be867413e0223f43e457a9f09cd47868b4c9cdeb76dc48984910dc308f6a3f2cf8393f1216144a21f43e20f3e9f9be524beff43ca07a723829632b28f5cd5247c8838913f57917a6e5c36bf0bcfff021f8b54ef8b8cc0669ef70baf4bb97803c7e3653ee2fd243946c6f331265f8538c1fa01cf7f8e0fb7d7076b482388d3131d91b1b07fff2adf501e97a99ff35c94f948f7f132f95d9e13c445c89f2c057ed60ef85af83ed9544fd6892ddf4f5262c4d501c7e987900b920f3042fde0ea1f023f2bae1796f98875645f71f9b47cc0fdbbe97ede321be9df07c9e7770b79de7cbed76907dc8f45f2f11cf211e908dec7ee7889e7b74e3fa48c505cac551a97c7d7a40abd20f9c063521f8c75a4d2cfc239122e0e59433e0a8ce05ceef4fa91cdf726f1068ec1b93c15cd4826ee60f2587571c85da223653eb6111f764d081d0975c0959faf76301f394672fbaed2bcd5b83af926e28388cf933c56413b727188d78e7c1c92f0a119f9efdfdffb1f6392df0a</data>
+    </image>
+</images>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>kcolorbutton.h</includehint>
+    <includehint>kcolorbutton.h</includehint>
+</includehints>
+</UI>

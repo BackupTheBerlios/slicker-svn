@@ -1,0 +1,38 @@
+## kdebase/Makefile.am
+## (C) 1997 Stephan Kulow
+
+AUTOMAKE_OPTIONS = foreign 1.5
+COMPILE_FIRST = slicker
+DISTCLEANFILES = inst-apps
+
+install-data-local:
+	@echo ""
+	@echo ""
+	@echo ""
+	@echo "*************** Important *************************"
+	@echo ""
+	@echo " Add "$(bindir)" to your PATH"
+	@echo ""
+	@echo " Please note that this is a development version of slicker"
+	@echo " http://slicker.sourceforge.net"
+	@echo ""
+	@echo " Mark Westcott <mark@houseoffish.org> and all the slicker"
+	@echo " developers wish you fun with slicker."
+	@echo "****************************************************"
+	@echo ""
+
+$(top_srcdir)/configure.in: $(top_srcdir)/configure.files $(shell test -f $(top_srcdir)/configure.files && sed -e "s%^%\$(top_srcdir)/%" $(top_srcdir)/configure.files) $(top_srcdir)/subdirs
+	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common configure.in
+
+$(top_srcdir)/subdirs:
+	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common subdirs
+
+$(top_srcdir)/acinclude.m4: $(top_srcdir)/admin/acinclude.m4.in $(top_srcdir)/admin/libtool.m4.in
+	@cd $(top_srcdir) && cat admin/acinclude.m4.in admin/libtool.m4.in > acinclude.m4
+
+$(top_srcdir)/configure.files :
+	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common configure.files
+
+MAINTAINERCLEANFILES = subdirs configure.in acinclude.m4 SUBDIRS
+
+include $(top_srcdir)/rpm.mk

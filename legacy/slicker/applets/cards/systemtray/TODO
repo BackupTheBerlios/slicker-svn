@@ -1,0 +1,7 @@
+- group icons and switch between them with (the middle mousebutton -- make it later so if we than whant it and the integration is mutch easyer) a small arrow on the left side on a icon.
+- change the size of the tray dynamically (use the max lines for the maximum)
+- add a way to set the systemtray icons to every cards on the tab(menubar)
+
+
+FIXME:
+- Fix the icons in the configurationdialog

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=PrinterJobsApplet
+Comment=View, create, and edit printer jobs in the printer queue.
+Author=Jason Kivlighn
+Version=0.1
+Provides=AppletOnly
+X-KDE-Library=libprinterjobsapplet
+X-KDE-UniquePlugin=false

@@ -1,0 +1,25 @@
+#MIN_CONFIG
+AM_INIT_AUTOMAKE([slicker], [0.1], [http://slicker.sf.net/])
+
+CXXFLAGS="$CXXFLAGS -DQT_CLEAN_NAMESPACE -DQT_NO_ASCII_CAST"
+AC_CHECK_SETENV
+AC_CHECK_UNSETENV
+
+AC_MSG_CHECKING([whether to enable evil MacOSX workarounds])
+# some workarounds for MacOSX library stuff
+
+if test `uname` = 'Darwin'; then
+	LIB_KICKER='$(kde_libraries)/libkicker_shared.la'
+	LIBSLICKER_SHARE_LDFLAGS='-undefined suppress -flat_namespace'
+	AC_MSG_RESULT([yes])
+else
+	LIB_KICKER='$(kde_libraries)/kicker.la'
+	LIBSLICKER_SHARE_LDFLAGS=''
+	AC_MSG_RESULT([no])
+fi
+
+dnl the informationcenter card uses getdomainname
+AC_CHECK_GETDOMAINNAME
+
+AC_SUBST(LIB_KICKER)
+AC_SUBST(LIBSLICKER_SHARE_LDFLAGS)

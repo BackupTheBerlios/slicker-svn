@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Systemtray
+Comment=Systemtray Card
+Author=Sven Leiber
+Provides=AppletOnly
+Version=0.1 alpha
+X-KDE-Library=libsystemtrayapplet
+X-KDE-UniquePlugin=true

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=TestCardApplet
+Comment=A "Hello World" of CardDesk plugins.
+Author=Shamyl Zakariya
+Provides=AppletOnly
+Version=0.1 alpha
+X-KDE-Library=libtestapplet
+X-KDE-UniquePlugin=false
