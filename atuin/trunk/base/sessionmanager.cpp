@@ -121,7 +121,12 @@ SessionItem * SessionManager::loadItem(const QString & id) const
         KConfigGroup config(_currentConfig, id);
     
         SessionItemFactory * factory = _itemFactories[SessionItem::factoryName(id)];
-        return factory->loadItem(&config);
+		if (factory)
+			return factory->loadItem(&config);
+		else
+		{
+			kdError() << "Error finding factory for " << id << endl;
+		}
     }
     return 0L;
 }
