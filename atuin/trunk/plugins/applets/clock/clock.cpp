@@ -48,6 +48,7 @@ void Clock::setShowDate(bool showDate)
 	_showDate = showDate;
 }
 
+
 /**** PlainClock *************************/
 
 PlainClock::PlainClock(QWidget * parent, const char * name)
@@ -78,6 +79,16 @@ void PlainClock::displayTime()
 		_datelabel->setText(dateStr);
 	}
 
+}
+
+void PlainClock::setTimeFont(QFont font)
+{
+	_timelabel->setFont(font);
+}
+
+void PlainClock::setDateFont(QFont font)
+{
+	_datelabel->setFont(font);
 }
 
 /**** AnalogClock *************************/
@@ -153,13 +164,8 @@ SlickerClock::SlickerClock(QWidget * parent, const char * name)
 	
 	_grid = new QGridLayout(this,3,3);
 	
-	QFont f = font();
-	f.setPixelSize(11);
 	_timeLabel = new QLabel("",this);
 	_timeLabel->setAlignment(AlignCenter);
-	_timeLabel->setFont(f);
-	
-
 	
 	_secWidget = new QWidget(this);
 	_secWidget->setMinimumSize(12,12);
@@ -169,16 +175,11 @@ SlickerClock::SlickerClock(QWidget * parent, const char * name)
 	
 	_dayLabel = new QLabel(this);
 	_dayLabel->setAlignment(AlignCenter);
-	f.setPixelSize(20);
-	_dayLabel->setFont(f);
 		
-	f.setPixelSize(9);
 	_monthLabel = new QLabel(this);
 	_monthLabel->setAlignment(AlignCenter);
-	_monthLabel->setFont(f);
 	_yearLabel = new QLabel(this);
 	_yearLabel->setAlignment(AlignCenter);
-	_yearLabel->setFont(f);
 	
 	_grid->addMultiCellWidget(_dayLabel,1,2,0,1);
 	_grid->addWidget(_monthLabel,1,2);
@@ -222,5 +223,27 @@ void SlickerClock::displayTime()
 	p.end();
 
 } 
+
+void SlickerClock::setDateFontSizes(int day, int month)
+{
+	_daysize = day;
+	_monthsize = month;
+}
+
+void SlickerClock::setTimeFont(QFont font)
+{
+	_timeLabel->setFont(font);
+}
+
+void SlickerClock::setDateFont(QFont font)
+{
+	font.setPointSize(_daysize);
+	_dayLabel->setFont(font);
+	
+	font.setPointSize(_monthsize);
+	font.setBold(false);
+	_monthLabel->setFont(font);
+	_yearLabel->setFont(font);
+}
 
 #include "clock.moc"

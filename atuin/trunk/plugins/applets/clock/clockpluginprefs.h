@@ -18,10 +18,14 @@
 #include "pluginprefspage.h"
 
 #include <qhbuttongroup.h>
-#include <qvbox.h>
-#include <qhbox.h>
+#include <qlayout.h>
+#include <qvgroupbox.h>
+#include <qhgroupbox.h>
+#include <qpushbutton.h>
+#include <qlabel.h>
 #include <qcheckbox.h>
 #include <qradiobutton.h>
+#include <qlineedit.h>
 
 class ClockPluginPrefs : public PluginPrefsPage
 {
@@ -35,18 +39,38 @@ public:
 	virtual void save();
 	virtual void load();
 	
+	void updateFontLabel(QLabel * label);
+	void setNewFont(QLabel * label);
+	void saveFont(QFont font, QString prefix);
+	QFont loadFont(QString prefix);
+	
 private slots:
 	void slotConfigChanged();
+	void slotChangeTimeFont();
+	void slotChangeDateFont();
     
 private:
-	QHButtonGroup * _hbuttongroup;
-	QVBox * _vbox;
-	QHBox * _hbox;
+	QHButtonGroup * _hstylebuttongroup;
+	QVBoxLayout * _vbox;
+	QHButtonGroup * _hshowbuttongroup;
 	QRadioButton * _radioPlain;
 	QRadioButton * _radioAnalog;
 	QRadioButton * _radioSlicker;
 	QCheckBox * _checkShowSecs;
 	QCheckBox * _checkShowDate;
+	QVGroupBox * _timefontbox;
+	QVGroupBox * _datefontbox;
+	QLabel * _timefont;
+	QLabel * _datefont;
+	QPushButton * _changetimefont;
+	QPushButton * _changedatefont;
+	
+	QHGroupBox * _slickerfontsizebox;
+	QLabel * _slickerdaylabel;
+	QLabel * _slickermonthlabel;
+	QLineEdit * _slickerday;
+	QLineEdit * _slickermonth;
+	
 };
 
 

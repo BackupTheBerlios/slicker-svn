@@ -41,8 +41,13 @@ public slots:
 	//empty virtual function to display the updated time, hast to be overwritten by inherited classes 
 	virtual void displayTime();
 	
+	virtual void setTimeFont(QFont font) {}
+	virtual void setDateFont(QFont font) {}
+	
 	void setShowSecs(bool showSecs);
 	void setShowDate(bool showDate);
+	
+
 	
 protected:
 	QDateTime _datetime;
@@ -50,7 +55,6 @@ protected:
 	bool _showDate;
 private:
 	QTimer * _timer;
-	
 
 };
 
@@ -64,6 +68,9 @@ class PlainClock : public Clock
 public:
 	PlainClock(QWidget * parent = 0, const char * name = 0);
 	~PlainClock();
+	
+	void setTimeFont(QFont font);
+	void setDateFont(QFont font);
 private:
 	void displayTime();
 	QLabel * _timelabel;
@@ -93,6 +100,10 @@ class SlickerClock : public Clock
 public:
 	SlickerClock(QWidget * parent = 0, const char * name = 0);
 	~SlickerClock();
+	
+	void setTimeFont(QFont font);
+	void setDateFont(QFont font);
+	void setDateFontSizes(int day, int month);
 private:
 	void displayTime();
 	QGridLayout * _grid;
@@ -101,6 +112,8 @@ private:
 	QLabel * _monthLabel;
 	QLabel * _yearLabel;
 	QWidget * _secWidget;
+	int _daysize;
+	int _monthsize;
 };
 
 #endif

@@ -65,7 +65,13 @@ void ClockApplet::loadSettings()
 	else if(s == "Analog")
 		_clock = new AnalogClock(_vbox);
 	else if(s == "Slicker")
-		_clock = new SlickerClock(_vbox);
+	{
+		SlickerClock * clock = new SlickerClock(_vbox);
+		int daysize = _plugin->config()->readEntry("SlickerDaySize","20").toInt();
+		int monthsize = _plugin->config()->readEntry("SlickerMonthSize","8").toInt();
+		clock->setDateFontSizes(daysize,monthsize);
+		_clock = clock;
+	}
 			
 	s = _plugin->config()->readEntry("showSecs","true");
 	if(s == "true")
@@ -78,8 +84,43 @@ void ClockApplet::loadSettings()
 		_clock->setShowDate(true);
 	else
 		_clock->setShowDate(false);
+		
+	_clock->setTimeFont(loadFont("Time"));
+	_clock->setDateFont(loadFont("Date"));
 	
 	_clock->show();
+}
+
+QFont ClockApplet::loadFont(QString prefix)
+{
+	prefix+="Font_";
+	QFont font;
+	QString s;
+
+	KConfig * config = _plugin->config();
+	
+	s=config->readEntry(prefix+"family","default");
+	if(s != "default")
+		font.setFamily(s);
+	else
+		font.setFamily(font.defaultFamily());
+		
+	s=config->readEntry(prefix+"size","12");
+	font.setPointSize(s.toInt());
+	
+	s=config->readEntry(prefix+"bold","false");
+	if(s == "true")
+		font.setBold(true);
+	else
+		font.setBold(false);
+		
+	s=config->readEntry(prefix+"italic","false");
+	if(s == "true")
+		font.setItalic(true);
+	else
+		font.setItalic(false);
+		
+	return font;
 }
  
 /***** ClockAppletDef *******************/ 

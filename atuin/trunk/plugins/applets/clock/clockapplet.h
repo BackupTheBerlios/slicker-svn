@@ -42,6 +42,7 @@ public:
 	ClockApplet(SessionAppletDef * appletDef, const QString & id, ClockPlugin * clockPlugin);
 	virtual ~ClockApplet();
 	void loadSettings();
+	QFont loadFont(QString prefix);
 private slots:
 	void slotSettingsChanged();
 private:
