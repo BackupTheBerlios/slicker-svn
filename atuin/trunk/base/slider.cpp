@@ -50,6 +50,8 @@ bool Slider::accept(Applet * applet)
 {
     //TODO: This should be rewritten to provide some more intelligent filtering of applets
     QWidget *icon = applet->icon();
+    if (icon == 0)
+        return false;
 
     if ((icon->minimumWidth() > 32) || (icon->minimumHeight() > 32))
         return false;
