@@ -39,7 +39,7 @@ public:
     enum ScreenEdge { SameEdge = 1, TopEdge = 2, RightEdge = 4, BottomEdge = 8, LeftEdge = 16 };
 
 public:
-    explicit EdgeWidget(QWidget * parent = 0, const char * name = 0, WFlags f = Qt::WStyle_Customize | Qt::WDestructiveClose | Qt::WStyle_StaysOnTop | Qt::WStyle_NoBorder | Qt::WX11BypassWM);
+    explicit EdgeWidget(QWidget * parent = 0, const char * name = 0, WFlags f = Qt::WStyle_Customize | Qt::WDestructiveClose | Qt::WStyle_NoBorder);
     virtual ~EdgeWidget();
 
     /**

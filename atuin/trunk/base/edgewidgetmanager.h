@@ -19,6 +19,7 @@
 #include <qnamespace.h>
 
 #include "edgewidget.h"
+#include "slicker.h"
 
 /**
  * EdgeWidgetManager deals with several things.
@@ -63,6 +64,10 @@ public slots:
     */
     bool checkCollision(EdgeWidget &widget);
 
+	
+	void pollMouse();
+
+
 signals:
     /**
     	Upon a collision-check, if a collision is detected emit this signal.
@@ -105,6 +110,9 @@ private:
 
     QPtrList<EdgeWidget> _widgets;
     QPtrList<EdgeWidget> _checkedWidgets;
+	
+	QTimer * _mousePoller;
+	EdgeWidget::ScreenEdge _lastTouchedEdge;
 };
 
 #endif

@@ -45,7 +45,6 @@ Slider::~Slider()
     removeAllApplets();
 }
 
-
 bool Slider::accept(Applet * applet)
 {
     //TODO: This should be rewritten to provide some more intelligent filtering of applets
@@ -99,7 +98,7 @@ void Slider::mouseReleaseEvent(QMouseEvent *e)
 				contentWidget->show();
 		}
 		else
-		endPosDrag();
+			endPosDrag();
 	}
 
 	e->accept();

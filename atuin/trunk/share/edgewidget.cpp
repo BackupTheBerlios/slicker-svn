@@ -39,7 +39,7 @@ EdgeWidget::EdgeWidget(QWidget * parent, const char * name, WFlags f)
     setPosition( 0, SameEdge );
 
     KWin::setOnAllDesktops(winId(), true);
-    KWin::setState(winId(), NET::StaysOnTop | NET::SkipTaskbar | NET::SkipPager);
+    KWin::setState(winId(), NET::SkipTaskbar | NET::SkipPager);
 
     EdgeWidgetManager::self()->registerWidget(this);
 }
@@ -327,7 +327,6 @@ Qt::Orientation EdgeWidget::orientation(ScreenEdge e)
     }
 }
 
-// There are more effective ways to do this, but this is simple
 bool EdgeWidget::isHorizontal() const
 {
     return orientation(_edge) == Horizontal;

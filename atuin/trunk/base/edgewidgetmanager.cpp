@@ -13,8 +13,9 @@
 #include <qapplication.h>
 #include <qcursor.h>
 #include <qpoint.h>
-#include <kwin.h>
+#include <kapplication.h>
 #include <kdebug.h>
+#include <kwin.h>
 
 #include "edgewidgetmanager.h"
 
@@ -24,10 +25,17 @@ EdgeWidgetManager::EdgeWidgetManager()
 {
     // Yeah, we like offensive thinking.
     _policy = AttackerIsRight;
+
+	_mousePoller = new QTimer(this);
+	_lastTouchedEdge = (EdgeWidget::ScreenEdge)0;
+	connect(_mousePoller, SIGNAL(timeout()), this, SLOT(pollMouse()));
+	_mousePoller->start(100);
 }
 
 EdgeWidgetManager::~EdgeWidgetManager()
-{}
+{
+	_mousePoller->stop();
+}
 
 // Ordinary singleton pattern implementation.
 EdgeWidgetManager *EdgeWidgetManager::self()
@@ -48,6 +56,44 @@ void EdgeWidgetManager::deregisterWidget(EdgeWidget *widget)
 {
     _widgets.remove(widget);
     emit widgetDeregistered(widget);
+}
+
+void EdgeWidgetManager::pollMouse()
+{
+    EdgeWidget::ScreenEdge edge = (EdgeWidget::ScreenEdge)0;
+	EdgeWidget::ScreenEdge filteredEdge;
+	
+	QPoint mousePos = QCursor::pos();
+	QRect screen = Slicker::desktop()->screenGeometry();
+	
+	if (mousePos.x() == 0)
+		edge = (EdgeWidget::ScreenEdge)(edge | EdgeWidget::LeftEdge);
+	else if (mousePos.x() == screen.width())
+		edge = (EdgeWidget::ScreenEdge)(edge | EdgeWidget::RightEdge);
+	else
+		_lastTouchedEdge = (EdgeWidget::ScreenEdge)(_lastTouchedEdge & (~(EdgeWidget::LeftEdge | EdgeWidget::RightEdge)));
+	
+	if (mousePos.y() == 0)
+		edge = (EdgeWidget::ScreenEdge)(edge | EdgeWidget::TopEdge);
+	else if (mousePos.y() == screen.height())
+		edge = (EdgeWidget::ScreenEdge)(edge | EdgeWidget::BottomEdge);
+	else
+		_lastTouchedEdge = (EdgeWidget::ScreenEdge)(_lastTouchedEdge & (~(EdgeWidget::TopEdge | EdgeWidget::BottomEdge)));
+
+	filteredEdge = (EdgeWidget::ScreenEdge)(edge & (~_lastTouchedEdge));
+	
+	if (filteredEdge)
+	{
+		_lastTouchedEdge = edge;
+		QPtrListIterator<EdgeWidget> iterator(_widgets);
+		EdgeWidget * candidate;
+		
+    	for (candidate = iterator.toFirst(); candidate; candidate = (++iterator))
+		{
+			if (candidate->edge() & filteredEdge)
+				KWin::forceActiveWindow(candidate->winId());
+		}
+	}
 }
 
 bool EdgeWidgetManager::checkCollision(EdgeWidget &widget)
